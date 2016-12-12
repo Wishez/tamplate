@@ -1,0 +1,19 @@
+{
+  "name": "test",
+  "varsion": "0.0.0",
+  "authors": [
+    "Rory Mercury"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "normalize.css": "*",
+    "jquery": "2.*"
+  }
+}
