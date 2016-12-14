@@ -14,6 +14,8 @@
   ],
   "dependencies": {
     "normalize.css": "*",
-    "jquery": "2.*"
+    "jquery": "2.*",
+    "bootstrap": "4.0.0-alpha.5",
+    "font-awesome": "fontawesome#^4.7.0"
   }
 }

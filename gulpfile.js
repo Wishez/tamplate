@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp'),
+    pug = require('gulp-pug'),
     watch = require('gulp-watch'),
     prefixer = require('gulp-autoprefixer'),
     uglify = require('gulp-uglify'),
@@ -23,14 +24,14 @@ build: { //Тут мы укажем куда складывать готовые
     fonts: 'build/fonts/'
 },
 src: { //Пути откуда брать исходники
-    html: 'src/*.html', //Синтаксис src/*.html говорит gulp что мы хотим взять все файлы с расширением .html
-    js: 'src/js/main.js',//В стилях и скриптах нам понадобятся только main файлы
-    style: 'src/style/main.scss',
+    html: 'src/*.pug', //Синтаксис src/*.html говорит gulp что мы хотим взять все файлы с расширением .html
+    js: 'src/blocks/main.js',//В стилях и скриптах нам понадобятся только main файлы
+    style: 'src/blocks/main.scss',
     img: 'src/img/**/*.*', //Синтаксис img/**/*.* означает - взять все файлы всех расширений из папки и из вложенных каталогов
     fonts: 'src/fonts/**/*.*'
 },
 watch: { //Тут мы укажем, за изменением каких файлов мы хотим наблюдать
-    html: 'src/**/*.html',
+    html: 'src/**/*.pug',
     js: 'src/js/**/*.js',
     style: 'src/style/**/*.scss',
     image: 'src/img/**/*.*',
@@ -57,9 +58,9 @@ gulp.task('clean', function (cb) {
     rimraf(path.clean, cb);
 });
 
-gulp.task('html', function () {
+gulp.task('html', function buildHTML() {
     gulp.src(path.src.html) //Выберем файлы по нужному пути
-        .pipe(rigger()) //Прогоним через rigger(плагин позволяет импортировать один файл в другой конструкцией //= footer.html)
+        .pipe(pug()) //
         .pipe(gulp.dest(path.build.html)) //Выплюнем их в папку build
         .pipe(reload({stream: true})); //И перезагрузим наш сервер для обновлений
 });
