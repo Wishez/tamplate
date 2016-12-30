@@ -6,6 +6,7 @@ var gulp = require('gulp'),
     prefixer = require('gulp-autoprefixer'),
     uglify = require('gulp-uglify'),
     sass = require('gulp-sass'),
+    compass = require('gulp-compass'),
     sourcemaps = require('gulp-sourcemaps'),
     rigger = require('gulp-rigger'),
     cleanCSS = require('gulp-clean-css'),
@@ -25,20 +26,21 @@ build: { //Тут мы укажем куда складывать готовые
 },
 src: { //Пути откуда брать исходники
     html: 'src/*.pug', //Синтаксис src/*.html говорит gulp что мы хотим взять все файлы с расширением .html
-    js: 'src/blocks/main.js',//В стилях и скриптах нам понадобятся только main файлы
-    style: 'src/blocks/main.scss',
+    js: 'src/js/*.js',//В стилях и скриптах нам понадобятся только main файлы
+    style: 'src/scss/*.scss',
     img: 'src/img/**/*.*', //Синтаксис img/**/*.* означает - взять все файлы всех расширений из папки и из вложенных каталогов
     fonts: 'src/fonts/**/*.*'
 },
 watch: { //Тут мы укажем, за изменением каких файлов мы хотим наблюдать
     html: 'src/**/*.pug',
-    js: 'src/blocks/**/*.js',
-    style: 'src/blocks/**/*.scss',
+    js: 'src/**/*.js',
+    style: 'src/**/*.scss',
     image: 'src/img/**/*.*',
     fonts: 'src/fonts/**/*.*'
 },
 clean: './build'
 };
+
 
 var config = {
     server: {
@@ -78,7 +80,11 @@ gulp.task('js', function () {
 gulp.task('style', function () {
     gulp.src(path.src.style) //Выбираем main.scss
         .pipe(sourcemaps.init())//As well as js
-        .pipe(sass()) //Compile
+        .pipe(compass({
+      		config_file: './config.rb',
+      		css: 'build/css',
+      		sass: 'src/scss'
+    	}))
         .pipe(prefixer()) //Add vendor prefixs //Compress
         .pipe(cleanCSS())
         .pipe(sourcemaps.write())
