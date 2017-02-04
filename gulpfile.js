@@ -3,7 +3,6 @@
 var gulp = require('gulp'),
     pug = require('gulp-pug'),
     watch = require('gulp-watch'),
-    modernizr = require('gulp-modernizr'),
     prefixer = require('gulp-autoprefixer'),
     uglify = require('gulp-uglify'),
     sass = require('gulp-sass'),
@@ -21,6 +20,7 @@ var gulp = require('gulp'),
 var path = {
 build: { //Тут мы укажем куда складывать готовые после сборки файлы
     html: 'build/',
+    snippets: 'build/snippets/',
     js: 'build/js/',
     css: 'build/css/',
     img: 'build/img/',
@@ -30,6 +30,7 @@ src: { //Пути откуда брать исходники
     html: 'src/*.pug', //Синтаксис src/*.html говорит gulp что мы хотим взять все файлы с расширением .html
     js: 'src/js/*.js',//В стилях и скриптах нам понадобятся только main файлы
     style: 'src/scss/*.scss',
+    snippets: 'src/snippets/*/*.pug',
     img: 'src/img/**/*.*', //Синтаксис img/**/*.* означает - взять все файлы всех расширений из папки и из вложенных каталогов
     fonts: 'src/fonts/**/*.*'
 },
@@ -65,16 +66,19 @@ gulp.task('clean', function (cb) {
 gulp.task('html', function buildHTML() {
     gulp.src(path.src.html) //Выберем файлы по нужному пути
         .pipe(pug()) //
-        .pipe(gulp.dest(path.build.html)) //Выплюнем их в папку build
+        .pipe(gulp.dest(path.build.html)); //Выплюнем их в папку build
+    gulp.src(path.src.snippets) //Выберем файлы по нужному пути
+        .pipe(pug()) //
+        .pipe(gulp.dest(path.build.snippets))
         .pipe(reload({stream: true})); //И перезагрузим наш сервер для обновлений
 });
-
 gulp.task('js', function () {
+    gulp.src(path.watch.js)
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'))
     gulp.src(path.src.js) //Найдём наш main файл
         .pipe(rigger()) //Прогоним через rigger
         .pipe(sourcemaps.init()) //Инициализируем sourcemap
-        .pipe(modernizr())
-        .pipe(jshint())
         .pipe(uglify()) //Сожмём наш js
         .pipe(sourcemaps.write()) //Пропишем карты
         .pipe(gulp.dest(path.build.js)) //Выплюнем готовый файл в build
