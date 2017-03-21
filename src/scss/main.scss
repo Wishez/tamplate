@@ -5,14 +5,15 @@
 ***********/
 @import "compass";
 @import "breakpoint";
-@import "../../bower_components/font-awesome/css/font-awesome.min.css";
-@import "../../bower_components/normalize-css/normalize.css";
+@import "font-awesome-compass";
+@import "susy";
+@import "font-awesome";
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
-@import "../../bower_components/slick-carousel/slick/slick.css";
-@import "../../bower_components/slick-carousel/slick//slick-theme.css";
-@import "../../bower_components/susy/sass/susy";
+// Uncomment if you'll be needed slider.
+// @import "../../bower_components/slick-carousel/slick/slick.scss";
+// @import "../../bower_components/slick-carousel/slick/slick-theme.scss";
 /**********
-a
+
   CUSTOM
 
 ***********/

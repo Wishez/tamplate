@@ -6,9 +6,16 @@ $susy: (
 );
 @include border-box-sizing;
 /* Fonts */
-
+$stackComfortaa: 'Comfortaa', cursive;
 /* Colors */
-
+$cyan: #76bdff;
+$beige: #dfa76e;
+$nightBlack: #3f3c39;
+$gray: #eee;
+$maroon: #952d2c;
+$shadow: rgba(0, 0, 0, .9);
+$red: rgba(255, 18, 17, .9);
+$ghostBlack:  rgba(29, 22, 16, .8);
 /* breakpoints */
 $xxs: max-width 460px;
 $xs: max-width 769px;
@@ -17,13 +24,20 @@ $md: 992px 1199px;
 $lg: 1200px;
 /* Mixins */
 /* Body Custom */
+html, body {
+  min-height: 100%;
+}
 body {
   & * {
     margin: 0;
     padding: 0;
+    outline: 0;
+    border: 0;
+    text-decoration: none;
   }
+  position: relative;
   font: {
-    family: $stackGagalin;
+    family: $stackComfortaa;
     size: 16px;
   }
   line-height: 145%;
@@ -40,4 +54,19 @@ a {
   &:hover {
     text-decoration: none;  
   }
+  &:active {
+    text-decoration: none;  
+  }
+  &:focus {
+    text-decoration: none;  
+  }
+}
+
+.placeholder {
+  color: #aaa;
+}
+
+// For flexbox.
+.flexbox {
+  
 }

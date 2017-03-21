@@ -2,44 +2,50 @@
 
 var gulp = require('gulp'),
     pug = require('gulp-pug'),
+    babel = require('gulp-babel'),
     sass = require('gulp-sass'),
     compass = require('gulp-compass'),
     watch = require('gulp-watch'),
     prefixer = require('gulp-autoprefixer'),
-    cleanCSS = require('gulp-clean-css'),
     sourcemaps = require('gulp-sourcemaps'),
     jshint = require('gulp-jshint'),
+    uglifyjs = require('uglify-js'),
     uglify = require('gulp-uglify'),
-    babel = require('gulp-babel'),
-    rigger = require('gulp-rigger'),
+    cleanCSS = require('gulp-clean-css'),
+    jsonminify = require('gulp-jsonminify'),
     imagemin = require('gulp-imagemin'),
     pngquant = require('imagemin-pngquant'),
+    rigger = require('gulp-rigger'),
     rimraf = require('rimraf'),
     browserSync = require("browser-sync"),
+    jsonlint = require("gulp-jsonlint"),
     reload = browserSync.reload;
 
 var path = {
-build: { //Тут мы укажем куда складывать готовые после сборки файлы
+build: {
     html: 'build/',
     snippets: 'build/snippets/',
     js: 'build/js/',
+    data: 'build/data',
     css: 'build/css/',
     img: 'build/img/',
     fonts: 'build/fonts/'
 },
-src: { //Пути откуда брать исходники
-    html: 'src/*.pug', //Синтаксис src/*.html говорит gulp что мы хотим взять все файлы с расширением .html
-    js: 'src/js/*.js',//В стилях и скриптах нам понадобятся только main файлы
+src: { 
+    html: 'src/*.pug', 
+    js: 'src/js/*.js',
+    data: 'src/data/*.json',
     style: 'src/scss/*.scss',
     snippets: 'src/snippets/*/*.pug',
-    img: 'src/img/**/*.*', //Синтаксис img/**/*.* означает - взять все файлы всех расширений из папки и из вложенных каталогов
+    img: 'src/img/**/*',
     fonts: 'src/fonts/**/*.*'
 },
-watch: { //Тут мы укажем, за изменением каких файлов мы хотим наблюдать
+watch: {
     html: 'src/**/*.pug',
     js: 'src/**/*.js',
+    data: 'src/**/*.json',
     style: 'src/**/*.scss',
-    image: 'src/img/**/*.*',
+    image: 'src/img/**/*',
     fonts: 'src/fonts/**/*.*'
 },
 clean: './build'
@@ -66,6 +72,7 @@ gulp.task('clean', function (cb) {
 
 gulp.task('html', function buildHTML() {
     gulp.src(path.src.html) //Выберем файлы по нужному пути
+        .pipe(rigger())
         .pipe(pug()) //
         .pipe(gulp.dest(path.build.html)); //Выплюнем их в папку build
     gulp.src(path.src.snippets) //Выберем файлы по нужному пути
@@ -79,38 +86,48 @@ gulp.task('js', function () {
         .pipe(jshint.reporter('default'))
     gulp.src(path.src.js) //Найдём наш main файл
         .pipe(rigger()) //Прогоним через rigger
+        .pipe(babel({
+            presets: ['es2015']
+        }))
         .pipe(sourcemaps.init()) //Инициализируем sourcemap
-        .pipe(babel())
-        .pipe(uglify()) //Сожмём наш js
+        .pipe(uglify())
         .pipe(sourcemaps.write()) //Пропишем карты
         .pipe(gulp.dest(path.build.js)) //Выплюнем готовый файл в build
+    gulp.src(path.src.data)
+        .pipe(jsonlint())
+    	.pipe(jsonlint.reporter())
+        .pipe(jsonminify())
+        .pipe(gulp.dest(path.build.data))
         .pipe(reload({stream: true})) //Перезагрузим сервер
 });
 
 gulp.task('style', function () {
-    gulp.src(path.src.style) //Выбираем main.scss
-        .pipe(sourcemaps.init())//As well as js
+    gulp.src(path.src.style)
+        .pipe(sourcemaps.init())
         .pipe(compass({
       		config_file: './config.rb',
       		css: 'build/css',
-      		sass: 'src/scss'
+      		sass: 'src/scss',
+      		img: 'src/img'
     	}))
-        .pipe(prefixer()) //Add vendor prefixs //Compress
+        .pipe(prefixer())
+        //Compress
         .pipe(cleanCSS())
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest(path.build.css)) //Кладём в build
+        .pipe(gulp.dest(path.build.css))
         .pipe(reload({stream: true}))
 });
 
+
 gulp.task('image', function() {
-    gulp.src(path.src.img) //Выбераем наши картинки
-        .pipe(imagemin ({ //Сожмём их
+    gulp.src(path.src.img)
+        .pipe(imagemin ({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()],
             interlaced: true
         }))
-        .pipe(gulp.dest(path.build.img)) //И бросим в build
+        .pipe(gulp.dest(path.build.img))
         .pipe(reload({stream: true}));
 });
 
@@ -134,7 +151,7 @@ gulp.task('watch', function() {
     watch([path.watch.style], function(event, cb){
         gulp.start('style');
     });
-    watch([path.watch.js], function(event, cb){
+    watch([path.watch.js, path.watch.data], function(event, cb){
         gulp.start('js');
     });
     watch([path.watch.image], function(event, cb){
