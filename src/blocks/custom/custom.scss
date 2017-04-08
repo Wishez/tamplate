@@ -1,10 +1,12 @@
 /* Grid */
 $susy: (
-  global-box-sizing: border-box,
-  use-custom: (rem: true),
-  columns: 12
+  columns: 12,
+  gutters: 1/4,
+  global-box-sizing: border-box
 );
+
 @include border-box-sizing;
+
 /* Fonts */
 $stackComfortaa: 'Comfortaa', cursive;
 /* Colors */

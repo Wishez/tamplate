@@ -19,6 +19,7 @@ var gulp = require('gulp'),
     rimraf = require('rimraf'),
     browserSync = require("browser-sync"),
     jsonlint = require("gulp-jsonlint"),
+    webpack = require('gulp-webpack'),
     reload = browserSync.reload;
 
 var path = {
