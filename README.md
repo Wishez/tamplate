@@ -1,1 +1,2 @@
-Шаблон для начала проекта.
+My tamplate for starting projects.
+
