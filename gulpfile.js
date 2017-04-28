@@ -1,167 +1,189 @@
 'use strict';
 
-var gulp = require('gulp'),
-    pug = require('gulp-pug'),
-    babel = require('gulp-babel'),
-    sass = require('gulp-sass'),
-    compass = require('gulp-compass'),
-    watch = require('gulp-watch'),
-    prefixer = require('gulp-autoprefixer'),
-    sourcemaps = require('gulp-sourcemaps'),
-    jshint = require('gulp-jshint'),
-    uglifyjs = require('uglify-js'),
-    uglify = require('gulp-uglify'),
-    cleanCSS = require('gulp-clean-css'),
-    jsonminify = require('gulp-jsonminify'),
-    imagemin = require('gulp-imagemin'),
-    pngquant = require('imagemin-pngquant'),
-    rigger = require('gulp-rigger'),
-    rimraf = require('rimraf'),
-    browserSync = require("browser-sync"),
-    jsonlint = require("gulp-jsonlint"),
-    webpack = require('gulp-webpack'),
-    reload = browserSync.reload;
 
-var path = {
-build: {
-    html: 'build/',
-    snippets: 'build/snippets/',
-    js: 'build/js/',
-    data: 'build/data',
-    css: 'build/css/',
-    img: 'build/img/',
-    fonts: 'build/fonts/'
-},
-src: { 
-    html: 'src/*.pug', 
-    js: 'src/js/*.js',
-    data: 'src/data/*.json',
-    style: 'src/scss/*.scss',
-    snippets: 'src/snippets/*/*.pug',
-    img: 'src/img/**/*',
-    fonts: 'src/fonts/**/*.*'
-},
-watch: {
-    html: 'src/**/*.pug',
-    js: 'src/**/*.js',
-    data: 'src/**/*.json',
-    style: 'src/**/*.scss',
-    image: 'src/img/**/*',
-    fonts: 'src/fonts/**/*.*'
-},
-clean: './build'
-};
+/* ----------------- */
+/* Dependencies
+/* ----------------- */
+
+const gulp = require('gulp'),
+      browserSync = require('browser-sync').create(),
+      sourcemaps = require('gulp-sourcemaps'),
+      concat = require('gulp-concat'),
+      sass = require('gulp-sass'),
+      pug = require('gulp-pug'),
+      autoprefixer = require('gulp-autoprefixer'),
+//      compass = require('gulp-compass'),
+      imagemin = require('gulp-imagemin'),
+      pngquant = require('imagemin-pngquant'),
+      browserify = require('browserify'),
+      babelify = require('babelify'),
+      source = require('vinyl-source-stream'),
+      buffer = require('vinyl-buffer'),
+      clean = require('gulp-clean');
 
 
-var config = {
+const hbsfy = require('hbsfy').configure({
+  extensions: ['html']
+});
+
+/* ----------------- */
+/* Settings variables
+/* ----------------- */
+
+const settings = {
+  src: './src',
+  build: './public'
+}, 
+      scssPathes = ['node_modules/susy/sass', 
+                    'node_modules/breakpoint-sass/stylesheets',
+                   'node_modules/bootstrap-sass/assets/stylesheets',
+                   'node_modules/font-awesome-sass/assets/stylesheets/'];
+
+
+/* ----------------- */
+/* Static files
+/* ----------------- */
+
+gulp.task('bundle', ['js', 'scss', 'images', 'html', 'fonts'], () => {
+  browserSync.init({
     server: {
-        baseDir: "./build"
+      baseDir: settings.build
     },
-    tunnel: true,
-    host: 'localhost',
+    open: false,
     port: 9000,
-    logPrefix: "Frontend_Devil"
-};
+    reloadDelay: 500
+  });
 
-gulp.task('serve', function() {
-    browserSync(config);
-});
-
-gulp.task('clean', function (cb) {
-    rimraf(path.clean, cb);
-});
-
-gulp.task('html', function buildHTML() {
-    gulp.src(path.src.html) //Выберем файлы по нужному пути
-        .pipe(rigger())
-        .pipe(pug()) //
-        .pipe(gulp.dest(path.build.html)); //Выплюнем их в папку build
-    gulp.src(path.src.snippets) //Выберем файлы по нужному пути
-        .pipe(pug()) //
-        .pipe(gulp.dest(path.build.snippets))
-        .pipe(reload({stream: true})); //И перезагрузим наш сервер для обновлений
-});
-gulp.task('js', function () {
-    gulp.src(path.watch.js)
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'))
-    gulp.src(path.src.js) //Найдём наш main файл
-        .pipe(rigger()) //Прогоним через rigger
-        .pipe(babel({
-            presets: ['es2015']
-        }))
-        .pipe(sourcemaps.init()) //Инициализируем sourcemap
-        .pipe(uglify())
-        .pipe(sourcemaps.write()) //Пропишем карты
-        .pipe(gulp.dest(path.build.js)) //Выплюнем готовый файл в build
-    gulp.src(path.src.data)
-        .pipe(jsonlint())
-    	.pipe(jsonlint.reporter())
-        .pipe(jsonminify())
-        .pipe(gulp.dest(path.build.data))
-        .pipe(reload({stream: true})) //Перезагрузим сервер
-});
-
-gulp.task('style', function () {
-    gulp.src(path.src.style)
-        .pipe(sourcemaps.init())
-        .pipe(compass({
-      		config_file: './config.rb',
-      		css: 'build/css',
-      		sass: 'src/scss',
-      		img: 'src/img'
-    	}))
-        .pipe(prefixer())
-        //Compress
-        .pipe(cleanCSS())
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest(path.build.css))
-        .pipe(reload({stream: true}))
+  gulp.watch(settings.src + '/**/*.scss', ['scss']).on('change', browserSync.reload);
+  gulp.watch(settings.src + '/images/**/*.*', ['images']).on('change', browserSync.reload);
+  gulp.watch(settings.src + '/**/*.pug', ['html']).on('change', browserSync.reload);
+  gulp.watch(settings.src + '/**/*.js', ['js']).on('change', browserSync.reload);
+  gulp.watch('./app/**/*').on('change', browserSync.reload);
 });
 
 
-gulp.task('image', function() {
-    gulp.src(path.src.img)
-        .pipe(imagemin ({
-            progressive: true,
-            svgoPlugins: [{removeViewBox: false}],
-            use: [pngquant()],
-            interlaced: true
-        }))
-        .pipe(gulp.dest(path.build.img))
-        .pipe(reload({stream: true}));
+/* ----------------- */
+/* Scripts
+/* ----------------- */
+
+gulp.task('js', () => {
+  return browserify({
+      transform: ['hbsfy'],
+      entries: settings.src + '/js/main.js',
+      debug: true
+    })
+    .transform("babelify", {
+      plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy'],
+      presets: ['es2015', 'react'],
+      sourceMapsAbsolute: true
+    })
+    .bundle()
+    .pipe(source('main.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(settings.build + '/js'));
 });
+
+gulp.task('jsmin', () => {
+  return browserify({
+      transform: ['hbsfy'],
+      entries: settings.src + '/js/main.js',
+      debug: false
+    })
+    .transform("babelify", {
+      plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy'],
+      presets: ['es2015', 'react'],
+      sourceMapsAbsolute: false
+    })
+    .bundle()
+    .pipe(source('main.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: false }))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(settings.build + '/js'));
+});
+
+
+/* ----------------- */
+/* SASS
+/* ----------------- */
+
+gulp.task('scss', () => {
+  return gulp.src(settings.src + '/scss/**/*.scss')
+    .pipe(sourcemaps.init())
+    .pipe(sass({
+      includePaths: scssPathes
+    }).on('error', sass.logError))
+    .pipe(autoprefixer({
+      browsers: ['last 2 versions'],
+      cascade: false
+    }))
+    .pipe(sourcemaps.write())
+//    .pipe(concat('bundle.css'))
+    .pipe(gulp.dest(settings.build + '/css'))
+    .pipe(browserSync.stream());
+});
+
+gulp.task('css', () => {
+  return gulp.src(settings.src + '/scss/**/*.scss')
+    .pipe(sass({
+      outputStyle: 'compressed',
+      includePaths: scssPathes
+    }).on('error', sass.logError))
+    .pipe(autoprefixer())
+    .pipe(gulp.dest(settings.build + '/css'));
+});
+
+
+/* ----------------- */
+/* Images
+/* ----------------- */
+
+gulp.task('images', () => {
+  return gulp.src(settings.src + '/img/*')
+    .pipe(imagemin({
+      progressive: true,
+      use: [pngquant()]
+    }))
+    .pipe(gulp.dest(settings.build + '/img'));
+});
+
+
+/* ----------------- */
+/* HTML
+/* ----------------- */
+
+gulp.task('html', () => {
+  return gulp.src(settings.src + '/*.pug')
+    .pipe(pug())
+    .pipe(gulp.dest(settings.build));
+});
+
+
+/* ----------------- */
+/* Fonts
+/* ----------------- */
 
 gulp.task('fonts', function() {
-    gulp.src(path.src.fonts)
-        .pipe(gulp.dest(path.build.fonts))
+  return gulp.src(settings.src + '/fonts/**/*.*')
+    .pipe(gulp.dest(settings.build + '/fonts'));
 });
 
-gulp.task('build', [
-    'html',
-    'js',
-    'style',
-    'fonts',
-    'image'
-]);
 
-gulp.task('watch', function() {
-    watch([path.watch.html], function(event, cb) {
-        gulp.start('html');
-    });
-    watch([path.watch.style], function(event, cb){
-        gulp.start('style');
-    });
-    watch([path.watch.js, path.watch.data], function(event, cb){
-        gulp.start('js');
-    });
-    watch([path.watch.image], function(event, cb){
-        gulp.start('image');
-    });
-    watch([path.watch.fonts], function(event, cb){
-        gulp.start('fonts');
-    });
+/* ----------------- */
+/* Clean
+/* ----------------- */
+
+gulp.task('clean', function () {
+    return gulp.src('public', { read: false })
+      .pipe(clean());
 });
 
-gulp.task('default', ['build', 'serve', 'watch']);
 
+/* ----------------- */
+/* Predefined
+/* ----------------- */
+
+gulp.task('start', ['bundle']);  // development
+gulp.task('deploy', ['html', 'css', 'jsmin', 'images', 'fonts']);  // production

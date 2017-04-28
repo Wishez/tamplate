@@ -3,15 +3,13 @@
   THIRD PARTY
 
 ***********/
-@import "compass";
-@import "breakpoint";
-@import "font-awesome-compass";
-@import "susy";
+@import "font-awesome-sprockets";
 @import "font-awesome";
-@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
-// Uncomment if you'll be needed slider.
-// @import "../../bower_components/slick-carousel/slick/slick.scss";
-// @import "../../bower_components/slick-carousel/slick/slick-theme.scss";
+@import 'bootstrap';
+@import 'bootstrap-sprockets';
+@import "breakpoint";
+@import 'susy';
+//@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
 /**********
 
   CUSTOM
@@ -23,10 +21,6 @@
 @import "../blocks/header/header.scss";
 @import "../blocks/footer/footer.scss";
 @import "../blocks/main/main.scss";
-
-// Snippets of elements
-@import "../snippets/breadcrumb-snippet/breadcrumb.scss";
-@import "../snippets/heading-snippet/heading.scss";
 
 
 
