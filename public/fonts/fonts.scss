@@ -1,24 +1,30 @@
 @font-face {
-  font-family: 'Comfortaa';
+  font-family: 'inglobal';
   font-weight: bold;
   font-style: normal;
-  src: url('../fonts/Comfortaa/Comfortaa-Bold.eot');
-  src: local('Comfortaa'), url('../fonts/Comfortaa/Comfortaa-Bold.woff') format('woff'), url('../fonts/Comfortaa/Comfortaa-Bold.ttf') format('truetype'), url('../fonts/Comfortaa/Comfortaa-Bold.svg') format('svg');
+  src: url('../fonts/inglobal/inglobalb.eot');
+  src: local('inglobal'), url('../fonts/inglobal/inglobalb.woff') format('woff'), url('../fonts/inglobal/inglobalb.ttf') format('truetype'), url('../fonts/inglobal/inglobalb.svg') format('svg');
 }
 @font-face {
-  font-family: 'Comfortaa';
-  font-weight: lighter;
-  font-style: normal;
-    
-  src: url('../fonts/Comfortaa/Comfortaa-Light.eot');
-  src: local('Comfortaa'), url('../fonts/Comfortaa/Comfortaa-Light.woff') format('woff'), url('../fonts/Comfortaa/Comfortaa-Light.ttf') format('truetype'), url('../fonts/Comfortaa/Comfortaa-Light.svg') format('svg');
+  font-family: 'inglobal';
+  font-weight: bold;
+  font-style: italic;
+  src: url('../fonts/inglobal/inglobalbi.eot');
+  src: local('ibglobal'), url('../fonts/inglobal/inglobalbi.woff') format('woff'), url('../fonts/inglobal/inglobalbi.ttf') format('truetype'), url('../fonts/inglobal/inglobalbi.svg') format('svg');
 }
 @font-face {
-  font-family: 'Comfortaa';
+  font-family: 'inglobal';
+  font-weight: normal;
+  font-style: italic;
+  src: url('../fonts/inglobal/inglobali.eot');
+  src: local('ibglobal'), url('../fonts/inglobal/inglobali.woff') format('woff'), url('../fonts/inglobal/inglobali.ttf') format('truetype'), url('../fonts/inglobal/inglobali.svg') format('svg');
+}
+@font-face {
+  font-family: 'inglobal';
   font-weight: normal;
   font-style: normal;
-  src: url('../fonts/Comfortaa/Comfortaa-Regular.eot');
-  src: local('Comfortaa'), url('../fonts/Comfortaa/Comfortaa-Regular.woff') format('woff'), url('../fonts/Comfortaa/Comfortaa-Regular.ttf') format('truetype'), url('../fonts/Comfortaa/Comfortaa-Regular.svg') format('svg');
+  src: url('../fonts/inglobal/inglobal.eot');
+  src: local('inglobal'), url('../fonts/inglobal/inglobal.woff') format('woff'), url('../fonts/inglobal/inglobal.ttf') format('truetype'), url('../fonts/inglobal/inglobal.svg') format('svg');
 }
 @font-face {
   font-family:'FontAwesome';

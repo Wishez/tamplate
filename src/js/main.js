@@ -13,9 +13,10 @@ const jsCookie = require('js-cookie'),
       jqueryEasing = require('jquery.easing'),
       moment = require('moment');
 
-
 /**********
 
   CUSTOM
 
 ***********/
+
+import './../blocks/header/header.js';

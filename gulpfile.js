@@ -51,11 +51,11 @@ gulp.task('bundle', ['js', 'scss', 'images', 'html', 'fonts'], () => {
     },
     open: false,
     port: 9000,
-    reloadDelay: 500
+    reloadDelay: 2200
   });
 
   gulp.watch(settings.src + '/**/*.scss', ['scss']).on('change', browserSync.reload);
-  gulp.watch(settings.src + '/images/**/*.*', ['images']).on('change', browserSync.reload);
+  gulp.watch(settings.src + '/img/**/*.*', ['images']).on('change', browserSync.reload);
   gulp.watch(settings.src + '/**/*.pug', ['html']).on('change', browserSync.reload);
   gulp.watch(settings.src + '/**/*.js', ['js']).on('change', browserSync.reload);
   gulp.watch('./app/**/*').on('change', browserSync.reload);

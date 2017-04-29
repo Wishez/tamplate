@@ -1,0 +1,18 @@
+#searchForm {
+  max-width: 262px;
+  &::before {
+    top: -85%;
+    left: -11%;
+  }
+}
+
+.search {
+  @include span(4 of last);
+  margin-top: 10px;
+  @include breakpoint($xs) {
+    width: span(12);
+    margin-top: (92% / 580) * 100;
+  }
+}
+ 
+@import '__controller.scss';

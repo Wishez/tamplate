@@ -1,0 +1,20 @@
+.logo__name {
+  color: #fff;
+  font: {
+    family: $stackInglobal;
+    size: (50em / 16);
+    weight: bold;
+    style: italic;
+  }
+  text-shadow: -4px 0 0 darken($red, 15%);
+  @include breakpoint($xs) {
+    width: span(3);  
+    min-width: 430px;
+    position: relative;
+    left: 20px;
+  }
+  &::before {
+    top: -40%;
+    left: -7%;
+  }
+}
