@@ -3,6 +3,12 @@
   &::before {
     top: -85%;
     left: -11%;
+    @include breakpoint($xs) {
+      top: -65%;
+    }
+    @include breakpoint($xxs) {
+      left: -7%;
+    }
   }
 }
 
@@ -11,7 +17,7 @@
   margin-top: 10px;
   @include breakpoint($xs) {
     width: span(12);
-    margin-top: (92% / 580) * 100;
+    margin-top: 82px;
   }
 }
  

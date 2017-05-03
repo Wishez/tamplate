@@ -1,14 +1,14 @@
 .logo {
   @include span(8);
-  @include breakpoint($xs) {
-    margin-top: (92% / 580) * 100;
-  }
   & .navbar-brand {
     padding: 0;
   }
   &, .navbar-brand {
     @include breakpoint($xs) {
       width: span(12);
+      float: none;
+      margin-left: auto !important;
+      margin-right: auto !important;
     }
   }
   

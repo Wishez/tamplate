@@ -49893,7 +49893,35 @@ module.exports = require('./lib/React');
 },{"./lib/React":166}],191:[function(require,module,exports){
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+$(window).resize(function () {
+  var $navList = $('#navList'),
+      navListStyle = $navList[0].style;
+
+  if (window.innerWidth > 767) navListStyle.display = 'inline-flex';else navListStyle.display = 'none';
+});
+
+$(document).on('click', '.not-follow', openUrlInNewWindow);
+
+function openUrlInNewWindow(e) {
+  e.preventDefault();
+
+  var $target = $(e.target);
+
+  $target = $target[0].tagName === 'A' ? $target : $target.parent();
+
+  var url = $target.prop('href');
+
+  console.log(url, e.target);
+  window.open(url);
+}
+
+},{}],192:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Contacts = undefined;
 
 var _react = require('react');
 
@@ -49905,24 +49933,225 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function Contacts(props) {
+  return _react2.default.createElement(
+    'section',
+    { className: 'contacts' },
+    _react2.default.createElement(
+      'h3',
+      { className: 'contacts__title' },
+      '\u041A\u043E\u043D\u0442\u0430\u043A\u0442\u044B'
+    ),
+    _react2.default.createElement(
+      'ul',
+      { className: 'contactsStock' },
+      _react2.default.createElement(
+        'li',
+        { className: 'contactsStock__item' },
+        _react2.default.createElement(
+          'a',
+          { href: 'mailto:shiningfinger@list.ru' },
+          _react2.default.createElement('i', { className: 'fa fa-envelope-o fa-1x' }),
+          _react2.default.createElement(
+            'span',
+            null,
+            'shiningfinger@list.ru'
+          )
+        )
+      ),
+      _react2.default.createElement(
+        'li',
+        { className: 'contactsStock__item' },
+        _react2.default.createElement(
+          'a',
+          { href: '#',
+            className: 'not-follow' },
+          _react2.default.createElement('i', { className: 'fa fa-skype fa-1x' }),
+          _react2.default.createElement(
+            'span',
+            null,
+            '\u041F\u0438\u0448\u0438\u0442\u0435 \u0432 \u0441\u043A\u0430\u0439\u043F'
+          )
+        )
+      )
+    )
+  );
+}
+
+exports.Contacts = Contacts;
+
+},{"react":190,"react-dom":37}],193:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Services = undefined;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Services(props) {
+  return _react2.default.createElement(
+    'section',
+    { className: 'services' },
+    _react2.default.createElement(
+      'h3',
+      { className: 'services__title' },
+      '\u0423\u0441\u043B\u0443\u0433\u0438'
+    ),
+    _react2.default.createElement(
+      'ul',
+      { className: 'servicesStock' },
+      _react2.default.createElement(
+        'li',
+        { className: 'servicesStock__item' },
+        _react2.default.createElement('i', { className: 'fa fa-circle-o' }),
+        '\u041F\u0435\u0440\u0441\u043E\u043D\u0430\u043B\u044C\u043D\u044B\u0439 \u0441\u0430\u0439\u0442 \u043D\u0430 Django'
+      ),
+      _react2.default.createElement(
+        'li',
+        { className: 'servicesStock__item' },
+        _react2.default.createElement('i', { className: 'fa fa-circle-o' }),
+        '\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430 \u0434\u0438\u0437\u0430\u0439\u043D\u0430'
+      ),
+      _react2.default.createElement(
+        'li',
+        { className: 'servicesStock__item' },
+        _react2.default.createElement('i', { className: 'fa fa-circle-o' }),
+        '\u0418\u043D\u0442\u0435\u0440\u043D\u0435\u0442-\u043C\u0430\u0433\u0430\u0437\u0438\u043D \u043D\u0430 Django'
+      ),
+      _react2.default.createElement(
+        'li',
+        { className: 'servicesStock__item' },
+        _react2.default.createElement('i', { className: 'fa fa-circle-o' }),
+        '\u0410\u0434\u0430\u043F\u0442\u0438\u0432\u043D\u0430\u044F \u0432\u0451\u0440\u0441\u0442\u043A\u0430'
+      ),
+      _react2.default.createElement(
+        'li',
+        { className: 'servicesStock__item' },
+        _react2.default.createElement('i', { className: 'fa fa-circle-o' }),
+        'Landing page \u043D\u0430 Django'
+      ),
+      _react2.default.createElement(
+        'li',
+        { className: 'servicesStock__item' },
+        _react2.default.createElement('i', { className: 'fa fa-circle-o' }),
+        '\u041F\u043E\u0434\u0434\u0435\u0440\u0436\u043A\u0430 \u0441\u0430\u0439\u0442\u0430'
+      )
+    )
+  );
+}
+
+exports.Services = Services;
+
+},{"react":190,"react-dom":37}],194:[function(require,module,exports){
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _Logo = require('../header/components/Logo.js');
+
+var _Services = require('./components/Services.js');
+
+var _Contacts = require('./components/Contacts.js');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function Header(props) {
-  return _react2.default.createElement(
-    'div',
-    { className: 'header' },
-    _react2.default.createElement(
-      'div',
-      { className: 'container' },
-      _react2.default.createElement(Logo, null),
-      _react2.default.createElement(Search, null)
-    )
-  );
-}
+var Footer = function (_React$Component) {
+  _inherits(Footer, _React$Component);
+
+  function Footer(props) {
+    _classCallCheck(this, Footer);
+
+    return _possibleConstructorReturn(this, (Footer.__proto__ || Object.getPrototypeOf(Footer)).call(this, props));
+  }
+
+  _createClass(Footer, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'wrapper' },
+        _react2.default.createElement(
+          'div',
+          { className: 'footer' },
+          _react2.default.createElement(
+            'div',
+            { className: 'container' },
+            _react2.default.createElement(_Logo.Logo, null),
+            _react2.default.createElement(_Contacts.Contacts, null),
+            _react2.default.createElement(_Services.Services, null)
+          )
+        ),
+        _react2.default.createElement(
+          'section',
+          { className: 'border text-center' },
+          _react2.default.createElement(
+            'div',
+            { className: 'socials' },
+            _react2.default.createElement(
+              'a',
+              { href: 'https://github.com/Wishez',
+                className: 'not-follow' },
+              _react2.default.createElement('i', { className: 'fa fa-github fa-2x' })
+            ),
+            _react2.default.createElement(
+              'a',
+              { href: 'https://vk.com/shining_finger',
+                className: 'not-follow' },
+              _react2.default.createElement('i', { className: 'fa fa-vk fa-2x' })
+            )
+          ),
+          _react2.default.createElement(
+            'p',
+            { className: 'copyright' },
+            '\xA9\u20092017 \u0424\u0438\u043B\u0438\u043F\u043F \u0416\u0443\u0440\u0430\u0432\u043B\u0451\u0432 \u2013 \u0441\u043E\u0437\u0434\u0430\u043D\u0438\u0435 \u0441\u0430\u0439\u0442\u043E\u0432 \u043D\u0430 Django'
+          )
+        )
+      );
+    }
+  }]);
+
+  return Footer;
+}(_react2.default.Component);
+
+_reactDom2.default.render(_react2.default.createElement(Footer, null), document.getElementById('footer'));
+
+},{"../header/components/Logo.js":195,"./components/Contacts.js":192,"./components/Services.js":193,"react":190,"react-dom":37}],195:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Logo = undefined;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Logo(props) {
   return _react2.default.createElement(
@@ -49957,6 +50186,214 @@ function Logo(props) {
     )
   );
 }
+
+exports.Logo = Logo;
+
+},{"react":190}],196:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Navigation = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var menu = [{
+  name: 'Блог',
+  id: 'blog',
+  url: '#'
+}, {
+  name: 'Контакты',
+  id: 'contacts',
+  url: '#'
+}, {
+  name: 'Портфолио',
+  id: 'portfolio',
+  url: 'http://shining-present.tw1.ru'
+}, {
+  name: 'Обо мне',
+  id: 'about',
+  url: '#'
+}, {
+  name: 'Архив',
+  id: 'archive',
+  url: '#'
+}];
+
+var Navigation = function (_React$Component) {
+  _inherits(Navigation, _React$Component);
+
+  function Navigation(props) {
+    _classCallCheck(this, Navigation);
+
+    var _this = _possibleConstructorReturn(this, (Navigation.__proto__ || Object.getPrototypeOf(Navigation)).call(this, props));
+
+    _this.state = {
+      blog: true,
+      contacts: false,
+      portfolio: false,
+      about: false,
+      archive: false,
+      isOpen: false
+    };
+
+    _this.toggleMenu = _this.toggleMenu.bind(_this);
+    _this.openMenu = _this.openMenu.bind(_this);
+    return _this;
+  }
+
+  _createClass(Navigation, [{
+    key: 'toggleMenu',
+    value: function toggleMenu(e) {
+      this.setState({
+        blog: false,
+        contacts: false,
+        portfolio: false,
+        about: false,
+        archive: false
+      });
+
+      var $target = $(e.target),
+          val = $target.attr('value');
+
+      this.state[val] = true;
+      $('.navItem').removeClass('active');
+
+      $target.parent()[0].className += ' active';
+    }
+  }, {
+    key: 'openMenu',
+    value: function openMenu() {
+      var $navList = $('#navList');
+
+      if (!this.state.isOpen) {
+        this.setState({ isOpen: true });
+        $navList.show('fast');
+      } else {
+        this.setState({ isOpen: false });
+        $navList.hide('fast');
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var navItems = menu.map(function (a) {
+        return _react2.default.createElement(NavItem, {
+          name: a.name,
+          key: a.id,
+          id: a.id,
+          url: a.url,
+          onClick: _this2.toggleMenu });
+      });
+
+      console.log(this.state);
+      return _react2.default.createElement(
+        'nav',
+        { className: 'navigaton' },
+        _react2.default.createElement(
+          'button',
+          { id: 'openMenuButton',
+            className: 'navigation__openMenuButton visible-xs',
+            onClick: this.openMenu },
+          _react2.default.createElement(
+            'span',
+            { className: 'sr-only' },
+            'Toggle navigation'
+          ),
+          _react2.default.createElement('span', { className: 'icon-bar' }),
+          _react2.default.createElement('span', { className: 'icon-bar' }),
+          _react2.default.createElement('span', { className: 'icon-bar' })
+        ),
+        _react2.default.createElement(
+          'ul',
+          { className: 'navList',
+            id: 'navList' },
+          navItems
+        )
+      );
+    }
+  }]);
+
+  return Navigation;
+}(_react2.default.Component);
+
+var NavItem = function (_React$Component2) {
+  _inherits(NavItem, _React$Component2);
+
+  function NavItem(props) {
+    _classCallCheck(this, NavItem);
+
+    return _possibleConstructorReturn(this, (NavItem.__proto__ || Object.getPrototypeOf(NavItem)).call(this, props));
+  }
+
+  _createClass(NavItem, [{
+    key: 'render',
+    value: function render() {
+      var name = this.props.name,
+          id = this.props.id,
+          url = this.props.url;
+
+      return _react2.default.createElement(
+        'li',
+        { className: id === 'blog' ? 'navItem active' : 'navItem',
+          id: id },
+        _react2.default.createElement(
+          'a',
+          { href: url,
+            onClick: this.props.onClick,
+            value: id,
+            className: url !== '#' && url ? 'navItem__refer not-follow' : 'navItem__refer' },
+          name
+        )
+      );
+    }
+  }]);
+
+  return NavItem;
+}(_react2.default.Component);
+
+exports.Navigation = Navigation;
+
+},{"react":190,"react-dom":37}],197:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Search = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Search = function (_React$Component) {
   _inherits(Search, _React$Component);
@@ -50001,126 +50438,53 @@ var Search = function (_React$Component) {
   return Search;
 }(_react2.default.Component);
 
-var menu = [{
-  name: 'Блог',
-  id: 'blog'
-}, {
-  name: 'Контакты',
-  id: 'contacts'
-}, {
-  name: 'Портфолио',
-  id: 'protfolio'
-}, {
-  name: 'Обо мне',
-  id: 'about'
-}, {
-  name: 'Архив',
-  id: 'archive'
-}];
+exports.Search = Search;
 
-var Navigation = function (_React$Component2) {
-  _inherits(Navigation, _React$Component2);
+},{"react":190}],198:[function(require,module,exports){
+'use strict';
 
-  function Navigation(props) {
-    _classCallCheck(this, Navigation);
+var _react = require('react');
 
-    var _this2 = _possibleConstructorReturn(this, (Navigation.__proto__ || Object.getPrototypeOf(Navigation)).call(this, props));
+var _react2 = _interopRequireDefault(_react);
 
-    _this2.state = {
-      blog: true,
-      contacts: false,
-      portfolio: false,
-      about: false,
-      archive: false
-    };
+var _reactDom = require('react-dom');
 
-    _this2.toggleMenu = _this2.toggleMenu.bind(_this2);
-    return _this2;
-  }
+var _reactDom2 = _interopRequireDefault(_reactDom);
 
-  _createClass(Navigation, [{
-    key: 'toggleMenu',
-    value: function toggleMenu(e) {
-      //    $('.navItem').removeClass('active');
-      this.setState({
-        blog: false,
-        contacts: false,
-        portfolio: false,
-        about: false,
-        archive: false
-      });
-      this.state[e.target.value] = true;
-      //    this.setState({
-      //      {e.target.value}: true
-      //    });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this3 = this;
+var _Logo = require('./components/Logo.js');
 
-      var navItems = menu.map(function (a) {
-        return _react2.default.createElement(NavItem, {
-          isActive: a.id,
-          name: a.name,
-          key: a.id,
-          onClick: _this3.toggleMenu });
-      });
+var _Search = require('./components/Search.js');
 
-      return _react2.default.createElement(
-        'nav',
-        { className: 'navigaton' },
+var _Navigation = require('./components/Navigation.js');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Header(props) {
+  return _react2.default.createElement(
+    'div',
+    { className: 'header' },
+    _react2.default.createElement(
+      'div',
+      { className: 'container' },
+      _react2.default.createElement(_Logo.Logo, null),
+      _react2.default.createElement(_Search.Search, null),
+      _react2.default.createElement(_Navigation.Navigation, null),
+      _react2.default.createElement(
+        'div',
+        { className: 'slogan text-center' },
         _react2.default.createElement(
-          'ul',
-          { className: 'navList' },
-          navItems
+          'h2',
+          { className: 'slogan__text' },
+          '\u0421\u0430\u0439\u0442\u044B \u043D\u0430 Django.'
         )
-      );
-    }
-  }]);
-
-  return Navigation;
-}(_react2.default.Component);
-
-var NavItem = function (_React$Component3) {
-  _inherits(NavItem, _React$Component3);
-
-  function NavItem(props) {
-    _classCallCheck(this, NavItem);
-
-    return _possibleConstructorReturn(this, (NavItem.__proto__ || Object.getPrototypeOf(NavItem)).call(this, props));
-  }
-
-  _createClass(NavItem, [{
-    key: 'render',
-    value: function render() {
-      var name = this.props.name,
-          id = this.props.id,
-          isActive = this.state.isActive = this.props.isActive,
-          active = isActive ? ' active' : '';
-
-      return _react2.default.createElement(
-        'li',
-        { className: 'navItem' + active,
-          onClick: this.props.onClick,
-          defaultValue: id },
-        _react2.default.createElement(
-          'a',
-          { id: id,
-            href: '#',
-            className: 'navItem__refer' },
-          name
-        )
-      );
-    }
-  }]);
-
-  return NavItem;
-}(_react2.default.Component);
+      )
+    )
+  );
+}
 
 _reactDom2.default.render(_react2.default.createElement(Header, null), document.getElementById('header'));
 
-},{"react":190,"react-dom":37}],192:[function(require,module,exports){
+},{"./components/Logo.js":195,"./components/Navigation.js":196,"./components/Search.js":197,"react":190,"react-dom":37}],199:[function(require,module,exports){
 'use strict';
 
 require('jquery');
@@ -50130,6 +50494,10 @@ require('bootstrap-sass');
 require('./modernizr.min.js');
 
 require('./../blocks/header/header.js');
+
+require('./../blocks/footer/footer.js');
+
+require('./../blocks/custom/custom.js');
 
 var jsCookie = require('js-cookie'),
     mask = require('jquery-mask-plugin'),
@@ -50149,7 +50517,7 @@ var jsCookie = require('js-cookie'),
 
 ***********/
 
-},{"./../blocks/header/header.js":191,"./modernizr.min.js":193,"bootstrap-sass":1,"jquery":25,"jquery-color":26,"jquery-mask-plugin":27,"jquery.easing":28,"js-cookie":30,"moment":31}],193:[function(require,module,exports){
+},{"./../blocks/custom/custom.js":191,"./../blocks/footer/footer.js":194,"./../blocks/header/header.js":198,"./modernizr.min.js":200,"bootstrap-sass":1,"jquery":25,"jquery-color":26,"jquery-mask-plugin":27,"jquery.easing":28,"js-cookie":30,"moment":31}],200:[function(require,module,exports){
 "use strict";
 
 var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -50680,6 +51048,6 @@ var _typeof = "function" == typeof Symbol && "symbol" == _typeof2(Symbol.iterato
   }a.Modernizr = x;
 }(window, document);
 
-},{}]},{},[192])
+},{}]},{},[199])
 
 //# sourceMappingURL=main.js.map

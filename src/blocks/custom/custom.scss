@@ -2,6 +2,7 @@
 $susy: (
   columns: 12,
   gutters: 1/4,
+  gutter-position: split,
   global-box-sizing: border-box
 );
 
@@ -19,10 +20,10 @@ $black:  #464646;
 /* breakpoints */
 $lg: 1200px;
 $md: 992px 1199px;
-$sm: 769px 991px;
-$xs-only: 460px 769px;
-$xs: max-width 769px;
-$xxs: max-width 460px;
+$sm: 768px 991px;
+$xs-only: 480px 800px;
+$xs: max-width 767px;
+$xxs: max-width 375px;
 /* Mixins */
 @mixin round() {
   border-radius: 50%;

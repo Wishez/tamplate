@@ -74,6 +74,7 @@
     "jquery.easing": "^1.4.1",
     "js-cookie": "^2.1.4",
     "jshint": "^2.9.4",
+    "react-native-router": "^0.2.1",
     "rimraf": "^2.5.4",
     "susy": "^2.2.12"
   }

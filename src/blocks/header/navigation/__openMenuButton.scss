@@ -1,0 +1,14 @@
+.navigation__openMenuButton {
+  position: absolute;
+  top: 11px;
+  left: 19px;
+  background-color: transparent;
+  & .icon-bar {
+    border-radius: 3px;
+    width: 26px;
+    height: 2px;
+    background-color: #fff;
+    display: block;
+    margin-top: 4px;
+  }
+}
