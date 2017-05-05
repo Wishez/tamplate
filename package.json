@@ -53,7 +53,9 @@
     "react": "^15.5.4",
     "react-addons-css-transition-group": "^15.5.2",
     "react-dom": "^15.5.4",
+    "react-redux": "^5.0.4",
     "react-router": "^4.1.1",
+    "redux": "^3.6.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
@@ -69,12 +71,13 @@
     "gulp-rigger": "^0.5.8",
     "gulp-uglify": "^2.0.1",
     "imagemin-pngquant": "^5.0.0",
+    "jquery": "^3.2.1",
     "jquery-color": "^1.0.0",
     "jquery-mask-plugin": "^1.14.10",
     "jquery.easing": "^1.4.1",
     "js-cookie": "^2.1.4",
     "jshint": "^2.9.4",
-    "react-native-router": "^0.2.1",
+    "react-router-dom": "^4.1.1",
     "rimraf": "^2.5.4",
     "susy": "^2.2.12"
   }

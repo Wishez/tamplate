@@ -68,9 +68,9 @@ button, a {
 }
 
 a {
-  color: currentColor;
+  color: $blue;
   &:hover {
-    color: currentColor; 
+    color: #7e7f7e;
   }
   &:visited {
     color: currentColor;

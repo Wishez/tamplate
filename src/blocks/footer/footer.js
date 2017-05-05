@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Logo } from '../header/components/Logo.js';
 import { Services } from './components/Services.js';
 import { Contacts } from './components/Contacts.js';
@@ -41,5 +40,4 @@ class Footer extends React.Component {
   }
 }
 
-
-ReactDOM.render(<Footer />, document.getElementById('footer'));
+export { Footer };
