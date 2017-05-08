@@ -41,10 +41,11 @@
     "gulp-autoprefixer": "^3.1.1",
     "gulp-babel": "^6.1.2",
     "gulp-clean": "^0.3.2",
-    "gulp-clean-css": "^3.0.4",
+    "gulp-clean-css": "^3.1.1",
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^1.11.0",
+    "gulp-uglify": "^2.1.2",
     "gulp-watch": "^4.3.11",
     "handlebars": "^4.0.6",
     "hbsfy": "^2.7.0",
@@ -62,6 +63,7 @@
   },
   "dependencies": {
     "breakpoint-sass": "^2.7.1",
+    "classnames": "^2.2.5",
     "font-awesome-sass": "^4.7.0",
     "gulp-imagemin": "^3.1.1",
     "gulp-jshint": "^2.0.4",
@@ -78,8 +80,11 @@
     "jquery.easing": "^1.4.1",
     "js-cookie": "^2.1.4",
     "jshint": "^2.9.4",
+    "prop-types": "^15.5.8",
     "react-router-dom": "^4.1.1",
+    "redux-form": "^6.6.3",
     "rimraf": "^2.5.4",
+    "semantic-ui-react": "^0.68.3",
     "susy": "^2.2.12"
   }
 }

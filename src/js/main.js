@@ -18,5 +18,5 @@ const jsCookie = require('js-cookie'),
   CUSTOM
 
 ***********/
-import './../blocks/App.js';	
-import './../blocks/custom/custom.js';
+
+import './../blocks/header/header.js';

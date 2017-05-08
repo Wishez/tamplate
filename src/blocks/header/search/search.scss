@@ -19,6 +19,12 @@
     width: span(12);
     margin-top: 82px;
   }
+  &__icon {
+    position: absolute;
+    top: 12px;
+    right: 17px;
+    color: $red;
+  }
 }
  
 @import '__controller.scss';
