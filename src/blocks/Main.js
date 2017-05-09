@@ -1,0 +1,14 @@
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+import App from './components/App';
+import configureStore from './store/configureStore.js';
+import { Provider } from 'react-redux';  
+import { BrowserRouter as Router } from 'react-router-dom';
+
+const store = configureStore();
+
+render((
+  <Provider store={store}>
+    <App />
+  </Provider>
+), document.getElementById('root'));
