@@ -12,14 +12,16 @@ const gulp = require('gulp'),
       sass = require('gulp-sass'),
       pug = require('gulp-pug'),
       autoprefixer = require('gulp-autoprefixer'),
-//      compass = require('gulp-compass'),
       imagemin = require('gulp-imagemin'),
       pngquant = require('imagemin-pngquant'),
       browserify = require('browserify'),
       babelify = require('babelify'),
       source = require('vinyl-source-stream'),
       buffer = require('vinyl-buffer'),
-      clean = require('gulp-clean');
+      clean = require('gulp-clean'),
+      uglify = require('gulp-uglify'),
+      cleanCSS = require('gulp-clean-css');
+
 
 
 const hbsfy = require('hbsfy').configure({
@@ -99,6 +101,7 @@ gulp.task('jsmin', () => {
     .bundle()
     .pipe(source('main.js'))
     .pipe(buffer())
+    .pipe(uglify())
     .pipe(sourcemaps.init({ loadMaps: false }))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(settings.build + '/js'));
@@ -132,6 +135,7 @@ gulp.task('css', () => {
       includePaths: scssPathes
     }).on('error', sass.logError))
     .pipe(autoprefixer())
+    .pipe(cleanCSS())
     .pipe(gulp.dest(settings.build + '/css'));
 });
 

@@ -64,6 +64,7 @@
   "dependencies": {
     "breakpoint-sass": "^2.7.1",
     "classnames": "^2.2.5",
+    "es6-error": "^4.0.2",
     "font-awesome-sass": "^4.7.0",
     "gulp-imagemin": "^3.1.1",
     "gulp-jshint": "^2.0.4",
@@ -81,10 +82,13 @@
     "js-cookie": "^2.1.4",
     "jshint": "^2.9.4",
     "prop-types": "^15.5.8",
+    "react-redux": "^5.0.4",
     "react-router-dom": "^4.1.1",
+    "redux": "^3.6.0",
     "redux-form": "^6.6.3",
     "rimraf": "^2.5.4",
     "semantic-ui-react": "^0.68.3",
-    "susy": "^2.2.12"
+    "susy": "^2.2.12",
+    "symbol-observable": "^1.0.4"
   }
 }
