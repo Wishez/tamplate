@@ -9,10 +9,13 @@
     margin-top: 0;
   }
   & a {
-    color: $yellow;
+    color: $yellow !important;
     transition: color 0.5s;
     &:hover {
-      color: #fd24ff;
+      color: #fd24ff !important;
+    }
+    &:visited {
+      color: currentColor;
     }
   }
 }

@@ -20,7 +20,10 @@ const gulp = require('gulp'),
       buffer = require('vinyl-buffer'),
       clean = require('gulp-clean'),
       uglify = require('gulp-uglify'),
-      cleanCSS = require('gulp-clean-css');
+      cleanCSS = require('gulp-clean-css'),
+      gutil = require('gulp-util'),
+      glob = require('glob'),
+      plumber = require('gulp-plumber');
 
 
 
@@ -46,7 +49,7 @@ const settings = {
 /* Static files
 /* ----------------- */
 
-gulp.task('bundle', ['js', 'scss', 'images', 'html', 'fonts'], () => {
+gulp.task('bundle', ['js', 'scss', 'images', 'html', 'fonts', 'components'], () => {
   browserSync.init({
     server: {
       baseDir: settings.build
@@ -59,7 +62,7 @@ gulp.task('bundle', ['js', 'scss', 'images', 'html', 'fonts'], () => {
   gulp.watch(settings.src + '/**/*.scss', ['scss']).on('change', browserSync.reload);
   gulp.watch(settings.src + '/img/**/*.*', ['images']).on('change', browserSync.reload);
   gulp.watch(settings.src + '/**/*.pug', ['html']).on('change', browserSync.reload);
-  gulp.watch(settings.src + '/**/*.js', ['js']).on('change', browserSync.reload);
+  gulp.watch(settings.src + '/**/*.js', ['js', 'components']).on('change', browserSync.reload);
   gulp.watch('./app/**/*').on('change', browserSync.reload);
 });
 
@@ -87,9 +90,29 @@ gulp.task('js', () => {
     .pipe(gulp.dest(settings.build + '/js'));
 });
 
-gulp.task('jsmin', () => {
+gulp.task('components', () => {
+  //let components  = glob.sync('./blocks/components/*.js');
   return browserify({
       transform: ['hbsfy'],
+      entries: settings.src + '/blocks/components/Article.js',
+      //entries: components,
+      debug: true
+    })
+    .transform("babelify", {
+      plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy'],
+      presets: ['es2015', 'react'],
+      sourceMapsAbsolute: true
+    })
+    .bundle()
+    .pipe(source('Article.js'))
+    .pipe(buffer())
+    .pipe(gulp.dest(settings.build + '/components'));
+})
+
+
+gulp.task('jsmin', () => {
+  return browserify({
+      transform: ['hbsfy'], 
       entries: settings.src + '/js/main.js',
       debug: false
     })
@@ -101,9 +124,9 @@ gulp.task('jsmin', () => {
     .bundle()
     .pipe(source('main.js'))
     .pipe(buffer())
-    .pipe(uglify())
-    .pipe(sourcemaps.init({ loadMaps: false }))
-    .pipe(sourcemaps.write('.'))
+    //.pipe(uglify()).on('error', gutil.log)
+    //.pipe(sourcemaps.init({ loadMaps: false }))
+    //.pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(settings.build + '/js'));
 });
 

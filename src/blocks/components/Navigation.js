@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 
 export default class Navigation extends Component {
   constructor(props) {
@@ -8,19 +9,9 @@ export default class Navigation extends Component {
     this.state = {
         isOpen: false
     };
-    
-    this.toggleMenu = this.toggleMenu.bind(this);
+
+    this.getActiveClass = this.getActiveClass.bind(this);
     this.openMenu = this.openMenu.bind(this);
-  }
-  
-  toggleMenu(e) {
-    let $target = $(e.target);
-
-    $('.navItem').removeClass('active');
-
-    $target
-      .parent()[0]
-      .className += ' active';
   }
   
   openMenu() {
@@ -36,6 +27,8 @@ export default class Navigation extends Component {
   }
    
   render() {
+    const { blog, contacts, about, archive} = this.props;
+
     return (
       <div>
         <nav className='navigaton'>
@@ -49,16 +42,19 @@ export default class Navigation extends Component {
           </button>
           <ul className='navList'
               id='navList'>
-            <li className='navItem active'>
-              <Link 
-                  to='/' 
-                  className='navItem__refer'
-                  onClick={this.toggleMenu}>Блог</Link>
+            <li className={this.getActiveClass(blog ? 'BLOG' : '')}>
+              <a 
+                href='#'
+                className='navItem__refer'>
+                Блог
+              </a>
             </li>
-            <li className='navItem'>
-              <Link to='/connect' 
-                  className='navItem__refer'
-                  onClick={this.toggleMenu}>Контакты</Link>
+            <li className={this.getActiveClass(contacts ? 'CONTACTS' : '')}>
+              <a 
+                href='#'
+                className='navItem__refer'>
+                  Контакты
+              </a>
             </li>
             <li className='navItem'>
               <a href='http://shining-present.tw1.ru' 
@@ -66,19 +62,72 @@ export default class Navigation extends Component {
                  Портфолио
               </a>
             </li>
-            <li className='navItem'>
-              <Link to='/about' 
-                  className='navItem__refer'
-                  onClick={this.toggleMenu}>Обо мне</Link>
+            <li className={this.getActiveClass(about ? 'ABOUT' : '')}>
+              <a 
+                href='#'
+                className='navItem__refer'>
+                  Обо мне
+              </a>
             </li>
-            <li className='navItem'>
-              <Link to='/archive' 
-                  className='navItem__refer'
-                  onClick={this.toggleMenu}>Архив</Link>
+            <li className={this.getActiveClass(archive ? 'ARCHIVE' : '')}>
+              <a 
+                href='#'
+                className='navItem__refer'>
+                  Архив
+              </a>
             </li>
           </ul>
         </nav>
       </div>
     );
   }
+
+
+  getActiveClass(linkName) {
+    const activeState = {
+        'navItem': true,
+        'active': true
+    },
+          normalState = 'navItem';
+    switch (linkName) {
+      case 'BLOG':      
+        return classNames(activeState);
+      case 'CONTACTS':
+        return classNames(activeState);
+      case 'ABOUT':
+        return classNames(activeState);
+      case 'ARCHIVE':
+        return classNames(activeState);
+      default:
+        return normalState;
+    }
+  }
 }
+
+// <li className='navItem active'>
+//               <Link 
+//                   to='/' 
+//                   className='navItem__refer'
+//                   onClick={}>Блог</Link>
+//             </li>
+//             <li className='navItem'>
+//               <Link to='/connect' 
+//                   className='navItem__refer'
+//                   onClick={this.toggleMenu}>Контакты</Link>
+//             </li>
+//             <li className='navItem'>
+//               <a href='http://shining-present.tw1.ru' 
+//                  className='navItem__refer not-follow'>
+//                  Портфолио
+//               </a>
+//             </li>
+//             <li className='navItem'>
+//               <Link to='/about' 
+//                   className='navItem__refer'
+//                   onClick={this.toggleMenu}>Обо мне</Link>
+//             </li>
+//             <li className='navItem'>
+//               <Link to='/archive' 
+//                   className='navItem__refer'
+//                   onClick={this.toggleMenu}>Архив</Link>
+//             </li>

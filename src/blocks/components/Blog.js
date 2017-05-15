@@ -1,23 +1,17 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom'; 
+import ListItem from './ListItem';
 
-const ListItem = () => {
-	return (
-		<article clssName='article'>
-			<h2></h2>
-		</article>
-	);
-}
-
-export default class Blog extends  Component {
+class Blog extends  Component {
 	state = { 
 		articles: []
 	};
 
-	async loadArticles() {
-		this.setState({
-			articles: await fetch('/api/v0/articles/').then(response => response.json())
-		});
+	loadArticles() {
+		fetch('/api/v0/articles/')
+				.then(response => response.json())
+				.then(data => this.setState({articles: data}))
+				.catch(err => console.log(err))
 	}
 
 	componentDidMount() {
@@ -25,13 +19,42 @@ export default class Blog extends  Component {
 	}
 
 	render() {
+		const articles = this.state.articles,
+			  posts = articles.map((article) => (
+			<li key={article.id} className='articles-list__container clearfix'>
+				<ListItem article={article} />
+			</li>
+		));
+		
 		return (
 			<section className='blog'>
-				<ul className='articles-list'>
-					<li> blog</li>
-
-				</ul>
+				<div className='container'>
+					<ul className='articles-list'>
+						{posts}
+					</ul>
+				</div>
 			</section>
 		);
 	}
 }
+
+render(React.createElement(Blog, window.props), window.react_mount);
+
+// const Blog = ({ articles }) => {
+// 	const articles = this.state.articles.map((article) => (
+// 		<li key={article.id} className='articles-list__container clearfix'>
+// 			<ListItem article={article} />
+// 		</li>
+// 	));
+	
+// 	return (
+// 		<section className='blog'>
+// 			<ul className='articles-list'>
+// 				{articles}
+// 			</ul>
+// 		</section>
+// 	);
+
+// }
+// 
+// 

@@ -1,54 +1,57 @@
-doctype
-html.no-js(lang="ru")
-head
-  meta(charset="UTF-8")
-  meta(
-    name="viewport",
-    content="width=device-width, initial-scale=1.0"
-  )
-  meta(
-    http-equive="X-UA-Compatible",
-    content="IE=edge"
-  )
-  title Filipp Zhuravlev 
-body
-  <div id='root'></div>
+| {% extends 'base.html' %}
+| {% load blog_filters %}
+
+| {% block title %}
+title {{ title }}
+| {% endblock %} 
+
+| {% block nav %}
+nav.navigaton
+	button#openMenuButton.navigation__openMenuButton.visible-xs
+		span.sr-only Toggle navigation
+		i.fa.fa-bars.fa-2x
+	ul.navList#navList
+		| {% if title == 'Филипп Журавлёв' or props.article %}
+		li.navItem.active
+			a.navItem__refer(href="{% url 'index' %}") Блог
+		| {% else %}
+		li.navItem
+			a.navItem__refer(href="{% url 'index' %}") Блог
+		| {% endif %}
+		| {% if title == 'Контакты' %}
+		li.navItem.active
+			a.navItem__refer(href="#") Контакты
+		| {% else %}
+		li.navItem
+			a.navItem__refer(href="#") Контакты
+		| {% endif %}
+		li.navItem
+			a.navItem__refer.not-follow(href='http://shining-present.tw1.ru') Портфолио
+		| {% if title == 'Обо мне' %}
+		li.navItem.active
+			a.navItem__refer(href="{% url 'about' %}") Обо мне
+		| {% else %}
+		li.navItem
+			a.navItem__refer(href="{% url 'about' %}") Обо мне	
+		| {% endif %}  
+		| {% if title == 'Архив' %}
+		li.navItem.active
+			a.navItem__refer(href='#') Архив
+		| {% else %}  
+		li.navItem
+			a.navItem__refer(href='#') Архив
+		| {% endif %}  
+| {% endblock %}
+| {% block content %}
+
+
+main#main
+	i.fa.fa-spinner.fa-pulse.fa-3x.fa-fw
+		span.sr-only Загрузка
   
-  script(async, src="/media/build/js/main.js", type="application/javascript")
-    
-  link(
-    rel="stylesheet",
-    href="/media/build/css/main.css",
-    type="text/css"
-  ) 
+script.
+	window.props = {{props|json}};
+	window.react_mount = document.getElementById('main');
 
-//- <!--[if lt IE 9]>
-//- <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js">
-//- <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js">
-//-<![endif]-->
-//-  media="none",
-//-  onload="if(media!=='all')media='all'",
-//-  lazyload="1"
-//- link(
-//-   href="/media/build/css/screen.css", 
-//-   rel="stylesheet",
-//-   media="none",
-//-   onload="if(media!=='print') media='print'",
-//-   lazyload="1"
-//- )
-//- link( 
-//-   href="/media/build/css/print.css",
-//-   rel="stylesheet",
-//-   media="none",
-//-   onload="if(media!=='print') media='print'",
-//-   lazyload="1"
-//- )
-//- link( 
-//-   href="/media/build/css/ie-10-up.css",
-//-   rel="stylesheet",
-//-   media="none",
-//-   onload="if(media!=='all') media='all'",
-//-   lazyload="1"
-//- )
-//- <!--[if IE]><link type="text/css" rel="stylesheet" href="/media/build/css/ie9.css" lazyload="1" /><![endif]-->
-
+script(src='/media/public/components/{{component}}')
+| {% endblock %}

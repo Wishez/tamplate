@@ -28,6 +28,13 @@ $xxs: max-width 375px;
 @mixin round() {
   border-radius: 50%;
 }
+@mixin xs-center-text() {
+  @include breakpoint($xs) {
+    text-align: center;
+    display: block;
+    width: span(12);
+  } 
+}
 /* Body Custom */
 html, body {
   min-height: 100%;
@@ -68,9 +75,9 @@ button, a {
 }
 
 a {
-  color: $blue;
+  color: $blue !important;
   &:hover {
-    color: #7e7f7e;
+    color: #7e7f7e !important;
   }
   &:visited {
     color: currentColor;
@@ -84,6 +91,9 @@ a {
     color: currentColor;
     text-decoration: none;  
   }
+}
+p {
+  margin-bottom: 1em;
 }
 
 .placeholder {

@@ -7,7 +7,6 @@ export default class Paragraph extends  Component {
 			<p className={block + '__paragraph paragraph'}>
 				{text}
 			</p>
-
 		);
 	}
 }

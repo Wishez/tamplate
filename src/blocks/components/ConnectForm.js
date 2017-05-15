@@ -98,13 +98,13 @@ class ConnectForm extends Component  {
 	}
 }
 
-function fixString(string) {
+// function fixString(string) {
 
-	return string
-		.replace(new RegExp(/[\s\d,\-\.!@#$%^&*_\\\/'";:\]\[{}~`]/, 'g'), '')
-		.replace(string[0], string[0].toUpperCase())
-		.replace(string.slice(1), string.slice(1).toLowerCase());
-}
+// 	return string
+// 		.replace(new RegExp(/[\s\d,\-\.!@#$%^&*_\\\/'";:\]\[{}~`]/, 'g'), '')
+// 		.replace(string[0], string[0].toUpperCase())
+// 		.replace(string.slice(1), string.slice(1).toLowerCase());
+// }
 
 export default reduxForm({
   form: 'connectForm'
