@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom'; 
 import ListItem from './ListItem';
+import Title from './Title';
 
 class Blog extends  Component {
 	state = { 
@@ -18,13 +19,35 @@ class Blog extends  Component {
 		this.loadArticles();
 	}
 
+
 	render() {
-		const articles = this.state.articles,
-			  posts = articles.map((article) => (
+		const  searchValue = this.props.search;
+		let articles = this.state.articles;
+			
+		if (searchValue) {
+			
+		    articles = articles.filter((article) => {
+		    	const reg = new RegExp(searchValue, 'gi'),
+		    		  isMatch = reg.test(article.title)  ||
+		    		   			reg.test(article.announce_text);
+
+		    	if (isMatch) {
+		    		article.title = article.title.replace(reg, "<span style='background: #ffe276'>" + searchValue + "</span>")
+		    		article.announce_text = article.announce_text.replace(reg, "<span style='background: #ffe276'>" + searchValue + "</span>")
+    				return article;
+		    	}
+
+		    	return false;
+	    	});
+		}
+
+		const posts = articles.length !== 0 ? articles.map((article) => (
 			<li key={article.id} className='articles-list__container clearfix'>
 				<ListItem article={article} />
 			</li>
-		));
+    	)) : <Title block='results' text='Ничего не найдено.' />;
+
+
 		
 		return (
 			<section className='blog'>
@@ -39,22 +62,3 @@ class Blog extends  Component {
 }
 
 render(React.createElement(Blog, window.props), window.react_mount);
-
-// const Blog = ({ articles }) => {
-// 	const articles = this.state.articles.map((article) => (
-// 		<li key={article.id} className='articles-list__container clearfix'>
-// 			<ListItem article={article} />
-// 		</li>
-// 	));
-	
-// 	return (
-// 		<section className='blog'>
-// 			<ul className='articles-list'>
-// 				{articles}
-// 			</ul>
-// 		</section>
-// 	);
-
-// }
-// 
-// 

@@ -5,7 +5,9 @@
   min-height: 568px;
   z-index: 1;
   padding-top: (50% / 568) * 100;
-  
+  @include breakpoint($lg) {
+      padding-top: (30% / 568) * 100;
+  }
   @include breakpoint($xs) {
     min-height: 580px;    
     padding-top: 0;

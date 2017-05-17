@@ -94,7 +94,7 @@ gulp.task('components', () => {
   //let components  = glob.sync('./blocks/components/*.js');
   return browserify({
       transform: ['hbsfy'],
-      entries: settings.src + '/blocks/components/Article.js',
+      entries: settings.src + '/blocks/components/Blog.js',
       //entries: components,
       debug: true
     })
@@ -104,7 +104,7 @@ gulp.task('components', () => {
       sourceMapsAbsolute: true
     })
     .bundle()
-    .pipe(source('Article.js'))
+    .pipe(source('Blog.js'))
     .pipe(buffer())
     .pipe(gulp.dest(settings.build + '/components'));
 })

@@ -8,6 +8,28 @@ $(window).resize(() => {
     navListStyle.display = 'none';
 });
 $(function() {
+
+  $('.header').fadeIn('slow');
+  $('#main').fadeIn('slow');
+  $('footer').fadeIn('slow');
+
+  $(document).on('click', '#openMenuButton', openMenu);
+
+  const $navList = $('#navList');
+  let isOpen = false;
+
+  function openMenu(e) {
+    console.log(isOpen);
+    console.log($navList);
+    if (!isOpen) {
+      isOpen = true;
+      $navList.show('fast'); 
+    } else {
+      isOpen = false;
+      $navList.hide('fast');
+    }
+  }
+
   $(document).on('click', '.not-follow', openUrlInNewWindow);
 
   function openUrlInNewWindow(e) {
@@ -25,7 +47,7 @@ $(function() {
 
   $(document).on('click', '.navItem__refer', (e) => {
     if (window.innerWidth  < 767)
-      $('#navList').hide('fast');
+      $navList.hide('fast');
 
   }); // end click
 });// end ready

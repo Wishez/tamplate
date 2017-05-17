@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import * as Cookies from 'js-cookie';
 
 const required = value => value ? undefined : 'Заполните, пожалуйста, это поле, и спасибо',
 	  email = value => value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Неправильный e-mail адрес' : undefined;
@@ -40,9 +41,32 @@ const renderField = ({ input, type, label, meta: { touched, error, warning }, te
 
 
 class ConnectForm extends Component  {
-
 	submit(values, dispatch) {
 		console.log(values);
+
+		const csrftoken = Cookies.get('csrftoken');
+		let csrfSafeMethod = (method) => (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+
+		$.ajaxSetup({
+			url: '/connect/',
+			type: 'POST',
+			data: values, 
+			beforeSend: (xhr, settings)  => {
+	          	if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+					xhr.setRequestHeader("X-CSRFToken", csrftoken);
+	        	}
+			}
+		});
+
+		$.ajax({
+			success: (respond) => {
+				$('.connect').hide();
+				$('#main').append(respond)
+			},
+			error: (xhr, errmsg, err) => {
+				console.log(errmsg);
+			}
+		});
 	}
 
 	render() {
@@ -50,7 +74,7 @@ class ConnectForm extends Component  {
 		return (
 			<div className='connect__form'>
 				<form 
-					id='#connectForm' 
+					id='connectForm' 
 					className='connectForm'
 					onSubmit={handleSubmit(this.submit.bind(this))}>
 					<Field 

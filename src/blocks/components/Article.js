@@ -1,37 +1,9 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-// import { Link } from 'react-router-dom';
-// import Paragraph from './Paragraph';
 import Title from './Title';
 import ReactHtmlParser from 'react-html-parser';
 
 class Article extends Component {
-	// state = {
-	// 	title: '',
-	// 	author: '',	
-	// 	text: '',
-	// 	created_at: '',
-	// 	isArticle: true
-	// };
-
-	// loadArticle(article_id) {
-	// 	if(!/[0-9]+/.test(article_id)) {
-	// 		this.setState({isArticle: false});
-	// 		return false;
-	// 	}
-
-	// 	fetch(`/api/v0/articles/${article_id}/`)
-	// 		.then(response => response.json())
-	// 		.then(data => {
-	// 			this.setState(data)
-	// 		})
-	// 		.catch(err => console.log(err));
-	// }
-
-	componentDidMount() {
-		// this.loadArticle(this.props.match.params['article_id']);
-	}
-
 	render() {
 		const { article } = this.props;
 

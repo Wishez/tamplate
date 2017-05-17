@@ -11,7 +11,7 @@ export default class ListItem extends  Component  {
 		return (
 			<article className='article'>
 				<a href={`/articles/${article.id}`}>
-					<Title block='article' text={article.title} />
+					<Title block='article' text={ ReactHtmlParser(article.title) } />
 				</a>
 				<small className='article__date'>
 					{ new Date(article.created_at).toLocaleDateString() }
