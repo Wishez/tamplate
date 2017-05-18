@@ -5,4 +5,4 @@
 {% if title == 'Связь' %}<li class="navItem active"><a class="navItem__refer" href="{% url 'connect' %}">Контакты</a></li>{% else %}<li class="navItem"><a class="navItem__refer" href="{% url 'connect' %}">Контакты</a></li>{% endif %}<li class="navItem"><a class="navItem__refer not-follow" href="http://shining-present.tw1.ru">Портфолио</a></li>{% if title == 'Обо мне' %}<li class="navItem active"><a class="navItem__refer" href="{% url 'about' %}">Обо мне</a></li>{% else %}<li class="navItem"><a class="navItem__refer" href="{% url 'about' %}">Обо мне	</a></li>{% endif %}  </ul></nav>{% endblock %}
 {% block content %}<main id="main" style="display: none;"><i class="fa fa-spinner fa-pulse fa-3x fa-fw center-block"><span class="sr-only">Загрузка</span></i></main><script>window.props = {{props|json}};
 window.react_mount = document.getElementById('main');
-</script><script src="/media/public/components/{{component}}"></script>{% endblock %}
+</script><script async="async" src="/media/public/components/{{component}}"></script>{% endblock %}

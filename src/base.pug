@@ -23,7 +23,10 @@ html.no-js(lang="ru")
     link(
       rel="stylesheet",
       href="/media/public/css/main.css",
-      type="text/css"
+      type="text/css",
+      media='none',
+      onload="if (media !== 'all') media = 'all'",
+      lazyload="1"
     ) 
 
 //- <!--[if lt IE 9]>

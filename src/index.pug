@@ -53,5 +53,5 @@ script.
 	window.props = {{props|json}};
 	window.react_mount = document.getElementById('main');
 
-script(src='/media/public/components/{{component}}')
+script(async, src='/media/public/components/{{component}}')
 | {% endblock %}

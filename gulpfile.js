@@ -94,7 +94,7 @@ gulp.task('components', () => {
   //let components  = glob.sync('./blocks/components/*.js');
   return browserify({
       transform: ['hbsfy'],
-      entries: settings.src + '/blocks/components/Blog.js',
+      entries: settings.src + '/blocks/components/About.js',
       //entries: components,
       debug: true
     })
@@ -104,8 +104,9 @@ gulp.task('components', () => {
       sourceMapsAbsolute: true
     })
     .bundle()
-    .pipe(source('Blog.js'))
+    .pipe(source('About.js'))
     .pipe(buffer())
+    .pipe(uglify())
     .pipe(gulp.dest(settings.build + '/components'));
 })
 
@@ -124,6 +125,7 @@ gulp.task('jsmin', () => {
     .bundle()
     .pipe(source('main.js'))
     .pipe(buffer())
+    .pipe(uglify())
     //.pipe(uglify()).on('error', gutil.log)
     //.pipe(sourcemaps.init({ loadMaps: false }))
     //.pipe(sourcemaps.write('.'))
