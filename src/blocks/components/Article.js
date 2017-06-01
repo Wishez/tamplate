@@ -11,9 +11,19 @@ class Article extends Component {
 			<article className='article'>
 				<div className='container'>
 			    	<Title block='article' text={ article.title } />
-				    <small className='article__date'>
-				    	{ new Date(article.created_at).toLocaleDateString() }
-				    </small>
+			    	<div className='article__meta'>
+					    <small className='article__date'>
+					    	{ new Date(article.created_at).toLocaleDateString() }
+					    </small>
+					    <strong>Автор:</strong>
+					    <a href="shining-present.ru" 
+				    	   itemscope 
+				    	   itemtype="http://schema.org/Person">
+					    	<small itemprop="name">
+					    		Филипп Журавлёв
+					    	</small>
+					    </a>
+				    </div>
 				    <div className='article__text text'>
 					   { ReactHtmlParser(article.text) }
 				    </div>

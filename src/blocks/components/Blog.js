@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import { render } from 'react-dom'; 
 import ListItem from './ListItem';
 import Title from './Title';
+import 'whatwg-fetch';
 
 class Blog extends  Component {
-	state = { 
+
+	state = {
 		articles: []
-	};
+	}
 
 	loadArticles() {
+
 		fetch('/api/v0/articles/')
 				.then(response => response.json())
 				.then(data => this.setState({articles: data}))

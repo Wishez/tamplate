@@ -9,11 +9,12 @@
 	& a {
 		display: inline-block;
 		margin: 0 20px;
-		&:visited {
-			color: currentColor !important;
-		}
+		// &:visited {
+
+		// }
 	}
 	& .fa {
+		color: $red;
 		position: relative;
 		transition: color 0.2s;
 		&:hover  {

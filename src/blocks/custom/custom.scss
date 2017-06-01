@@ -38,14 +38,19 @@ $xxs: max-width 375px;
 /* Body Custom */
 html, body {
   min-height: 100%;
+  width: 100%;
 }
 body {
   & * {
+    // Styles for testing 
+    // background: #000 !important;
+    // color: #0f0 !important;
+    // outline: solid #f00 1px !important;
     margin: 0;
     padding: 0;
     outline: 0;
     border: 0;
-    text-decoration: none;
+    text-decoration: none !important;
     &:active {
       outline: 0;
     }
@@ -61,6 +66,10 @@ body {
     family: $stackInglobal;
     size: 16px;
   }
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures contextual;
+  font-feauture-settings: "kern", "ling", "clig", "calt";
   line-height: 145%;
   font-size-adjust: 100%;
   word-break: break-word;
@@ -81,15 +90,12 @@ a {
   }
   &:visited {
     color: currentColor;
-    text-decoration: none;  
   }
   &:active {
     color: currentColor;
-    text-decoration: none;  
   }
   &:focus {
     color: currentColor;
-    text-decoration: none;  
   }
 }
 p {

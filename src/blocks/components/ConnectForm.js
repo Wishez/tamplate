@@ -42,10 +42,10 @@ const renderField = ({ input, type, label, meta: { touched, error, warning }, te
 
 class ConnectForm extends Component  {
 	submit(values, dispatch) {
-		console.log(values);
+		
 
 		const csrftoken = Cookies.get('csrftoken');
-		let csrfSafeMethod = (method) => (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+		const csrfSafeMethod = (method) => (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 
 		$.ajaxSetup({
 			url: '/connect/',
@@ -76,6 +76,7 @@ class ConnectForm extends Component  {
 				<form 
 					id='connectForm' 
 					className='connectForm'
+					method='post'
 					onSubmit={handleSubmit(this.submit.bind(this))}>
 					<Field 
 						name='first_name'

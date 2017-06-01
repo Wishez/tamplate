@@ -13,9 +13,19 @@ export default class ListItem extends  Component  {
 				<a href={`/articles/${article.id}`}>
 					<Title block='article' text={ ReactHtmlParser(article.title) } />
 				</a>
-				<small className='article__date'>
-					{ new Date(article.created_at).toLocaleDateString() }
-				</small>
+				<div className='article__meta'>
+				    <small className='article__date'>
+				    	{ new Date(article.created_at).toLocaleDateString() }
+				    </small>
+				    <strong>Автор:</strong>
+				    <a href="shining-present.ru" 
+			    	   itemscope 
+			    	   itemtype="http://schema.org/Person">
+				    	<small itemprop="name">
+				    		Филипп Журавлёв
+				    	</small>
+				    </a>
+			    </div>
 				<div className='article__text text'>
 					{ ReactHtmlParser(article.announce_text) }
 				</div>

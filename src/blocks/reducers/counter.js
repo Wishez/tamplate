@@ -36,4 +36,6 @@ expect(
 	counter(undefined, { type: 'SOMETHING_ELSE' })
 ).toEqual(0);
 
+console.log('Counter was tested!');
+
 export default counter;

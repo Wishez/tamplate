@@ -23,7 +23,7 @@ const gulp = require('gulp'),
       cleanCSS = require('gulp-clean-css'),
       gutil = require('gulp-util'),
       glob = require('glob'),
-      plumber = require('gulp-plumber');
+      envify = require('envify');
 
 
 
@@ -78,7 +78,10 @@ gulp.task('js', () => {
       debug: true
     })
     .transform("babelify", {
-      plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy'],
+      plugins: ['react-html-attrs',
+       'transform-class-properties',
+       'transform-decorators-legacy',
+       'transform-object-rest-spread'],
       presets: ['es2015', 'react'],
       sourceMapsAbsolute: true
     })
@@ -93,42 +96,45 @@ gulp.task('js', () => {
 gulp.task('components', () => {
   //let components  = glob.sync('./blocks/components/*.js');
   return browserify({
-      transform: ['hbsfy'],
-      entries: settings.src + '/blocks/components/About.js',
+      transform: ['hbsfy', 'envify'],
+      entries: settings.src + '/blocks/components/Blog.js',
       //entries: components,
       debug: true
     })
     .transform("babelify", {
-      plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy'],
+      plugins: ['react-html-attrs',
+       'transform-class-properties',
+       'transform-decorators-legacy',
+       'transform-object-rest-spread'],
       presets: ['es2015', 'react'],
       sourceMapsAbsolute: true
     })
     .bundle()
-    .pipe(source('About.js'))
+    .pipe(source('Blog.js'))
     .pipe(buffer())
     .pipe(uglify())
     .pipe(gulp.dest(settings.build + '/components'));
 })
-
-
 gulp.task('jsmin', () => {
   return browserify({
-      transform: ['hbsfy'], 
+      transform: ['hbsfy', 'envify'], 
       entries: settings.src + '/js/main.js',
       debug: false
     })
     .transform("babelify", {
-      plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy'],
+      plugins: ['react-html-attrs',
+       'transform-class-properties',
+       'transform-decorators-legacy',
+       'transform-object-rest-spread'],
       presets: ['es2015', 'react'],
       sourceMapsAbsolute: false
     })
     .bundle()
     .pipe(source('main.js'))
     .pipe(buffer())
-    .pipe(uglify())
-    //.pipe(uglify()).on('error', gutil.log)
-    //.pipe(sourcemaps.init({ loadMaps: false }))
-    //.pipe(sourcemaps.write('.'))
+    .pipe(uglify()).on('error', gutil.log)
+    .pipe(sourcemaps.init({ loadMaps: false }))
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(settings.build + '/js'));
 });
 
