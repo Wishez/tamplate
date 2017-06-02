@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import Title from './Title';
 import ReactHtmlParser from 'react-html-parser';
+import ArticleMeta from './ArticleMeta';
 
-class Article extends Component {
+export default class Article extends Component {
 	render() {
 		const { article } = this.props;
 
@@ -11,19 +12,7 @@ class Article extends Component {
 			<article className='article'>
 				<div className='container'>
 			    	<Title block='article' text={ article.title } />
-			    	<div className='article__meta'>
-					    <small className='article__date'>
-					    	{ new Date(article.created_at).toLocaleDateString() }
-					    </small>
-					    <strong>Автор:</strong>
-					    <a href="shining-present.ru" 
-				    	   itemscope 
-				    	   itemtype="http://schema.org/Person">
-					    	<small itemprop="name">
-					    		Филипп Журавлёв
-					    	</small>
-					    </a>
-				    </div>
+			    	<ArticleMeta date={ new Date(article.created_at).toLocaleDateString() } />
 				    <div className='article__text text'>
 					   { ReactHtmlParser(article.text) }
 				    </div>

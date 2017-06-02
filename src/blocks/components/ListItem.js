@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Paragraph from './Paragraph';
 import Title from './Title';
 import ReactHtmlParser from 'react-html-parser';
+import ArticleMeta from './ArticleMeta';
 
 export default class ListItem extends  Component  {
 	render() {
@@ -13,19 +14,7 @@ export default class ListItem extends  Component  {
 				<a href={`/articles/${article.id}`}>
 					<Title block='article' text={ ReactHtmlParser(article.title) } />
 				</a>
-				<div className='article__meta'>
-				    <small className='article__date'>
-				    	{ new Date(article.created_at).toLocaleDateString() }
-				    </small>
-				    <strong>Автор:</strong>
-				    <a href="shining-present.ru" 
-			    	   itemscope 
-			    	   itemtype="http://schema.org/Person">
-				    	<small itemprop="name">
-				    		Филипп Журавлёв
-				    	</small>
-				    </a>
-			    </div>
+				<ArticleMeta date={ new Date(article.created_at).toLocaleDateString() } />
 				<div className='article__text text'>
 					{ ReactHtmlParser(article.announce_text) }
 				</div>
@@ -38,19 +27,3 @@ export default class ListItem extends  Component  {
 		);
 	}
 }
-// <article class Name='article'>
-// 	<Link to={`/${article.id}`}>
-// 		<Title block='article' text={article.title} />
-// 	</Link>
-// 	<small className='article__date'>
-// 		{ new Date(article.created_at).toLocaleDateString() }
-// 	</small>
-// 	<div className='article__text text'>
-// 		{ ReactHtmlParser(article.announce_text) }
-// 	</div>
-// 	<Link to={`/${article.id}`} className='article__toArticle'>Читать дальше&hellip;</Link>
-// </article>
-		
-				// <small className='article__author'>
-				// 	{article.author}
-				// </small>

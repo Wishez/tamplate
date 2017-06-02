@@ -1,10 +1,11 @@
-// import * as todoTests from './../tests/TodoTests.sjs';
 import expect from 'expect';
 import deepFreeze from 'deep-freeze';
 
 const todo = (state, action) => {
 	switch(action.type) {
 		case 'ADD_TODO':
+			if (!action.text) return state; 
+
 			return {
 				id: action.id,
 				text: action.text,
@@ -55,84 +56,170 @@ const visibilityFilter = (
 	}
 };
 
-import { combineReducers } from 'redux';
+import { combineReducers, createStore} from 'redux';
 
 
-const todosApp =  combineReducers(
+const todosApp = combineReducers({
 	todos,
 	visibilityFilter 
-);
-
-import { createStore } from 'redux';
+});
 
 const store = createStore(todosApp);
 
 
-console.log('Initial state:');
-console.log(store.getState());
-console.log('--------------');
 
-console.log('Dispathccing ADD_TODO.');;
-store.dispatch({
-	type: 'ADD_TODO',
-	id: 0,
-	text: 'Learn Redux'
-});
+import React, { Component } from 'react';
+import { render } from 'react-dom'; 
+import { Input, Button } from 'semantic-ui-react';
+import classNames from 'classnames';
 
-console.log('Current state:');
-console.log(store.getState());
-console.log('--------------');
+let nextTodoId = 0;
+class Todo extends Component {
+	state = {
+		todoValue: ''
+	}
 
-console.log('Dispathccing ADD_TODO.');;
-store.dispatch({
-	type: 'ADD_TODO',
-	id: 1,
-	text: 'Change State'
-});
+	handleChangeTodoValue(e) {
+		this.setState({
+			todoValue: e.target.value
+		});
 
-console.log('Dispathccing ADD_TODO.');;
-store.dispatch({
-	type: 'ADD_TODO',
-	id: 2,
-	text: 'Remove Second Todo'
-});
+	}
 
-console.log('Current state:');
-console.log(store.getState());
-console.log('--------------');
+	render() {
+		const { visibilityFilter, todos } = this.props;
+		const { todoValue } = this.state;
 
-console.log('Dispathccing REMOVE_TODO.');;
-store.dispatch({
-	type: 'REMOVE_TODO',
-	id: 1
-});
+		let listTodos = todos.map(todo => (
+	 		<li key={todo.id}
+	 			onClick={() => { 
+	 					store.dispatch({
+	 						type: 'TOGGLE_TODO',
+	 						id: todo.id
+	 					});
+ 				}}
+	 			style={{
+	 				textDecoration: 
+	 					todo.completed ? 
+	 						'line-throught !important' :
+	 						'none',
+	 				marginTop: '1em'
+	 			}}
+	 		>
+	 			<Button icon={this.getToggleButtonClasses(todo.completed)} />  
+	 			{todo.text}
+	 			<Button icon='trash'
+	 				className='right'
+	 				onClick={() => { 
+	 					store.dispatch({
+	 						type: 'REMOVE_TODO',
+	 						id: todo.id
+	 					});
+	 				}} 
+	 			/>
+	 		</li>
+	 	));
+		console.log(visibilityFilter);
+	 	if (visibilityFilter === 'SHOW_COMPLETED')
+	 		listTodos = listTodos.filter(todo => (todo.completed));
+	 	else if (visibilityFilter === 'SHOW_ACTIVE')
+	 		listTodos = listTodos.filter(todo => (!todo.completed));
 
-console.log('Current state:');
-console.log(store.getState());
-console.log('--------------');
+		return (
+			<section>
+				<div className='container'>
+					<Input
+						icon='add'
+						iconPosition='left'
+						label={{tag: true, content: 'Add Todo'}}
+						labelPosition='right'
+						placeholder='Enter todo'
+						value={todoValue}
+						onChange={this.handleChangeTodoValue = this.handleChangeTodoValue.bind(this)}
+						style={{
+							marginRight: '0.5em'
+						}}
+					/>
+					 <Button 
+					 	content='Add'
+					 	color='brown'
+					 	size='big'
+					 	onClick={() => {
+					 		store.dispatch({
+					 			type: 'ADD_TODO',
+					 			text: todoValue,
+					 			id: nextTodoId++
+					 		});
+					 		this.setState({todoValue: ''});
+					 	}}
+					 />
+					 <ul>
+					 	{listTodos}
+					 </ul>
+					 <div style={{
+						marginTop: '1em'
+					 }}>
+						<Button content='Show all'
+								size='big'
+								color='green'
+								onClick={() => {
+									store.dispatch({
+										type: 'SET_VISIBILITY_FILTER',
+										filter: 'SHOW_ALL'
+									})
+								}}
+								style={{
+									marginRight: '0.5em'
+								}}
+						 />
+						 <Button content='Show completed'
+						 		size='big'
+								color='grey'
+								onClick={() => {
+									store.dispatch({
+										type: 'SET_VISIBILITY_FILTER',
+										filter: 'SHOW_COMPLETED'
+									})
+								}}
+								style={{
+									marginRight: '0.5em'
+								}}
+						 />
+						<Button content='Show active'
+								size='big'
+								color='red'
+								onClick={() => {
+									store.dispatch({
+										type: 'SET_VISIBILITY_FILTER',
+										filter: 'SHOW_ACTIVE'
+									})
+								}}
+						 />
+					 </div>
+				</div>
+			</section>
+		);
+	}
 
-console.log('Dispathccing TOGGLE_TODO.');;
-store.dispatch({
-	type: 'TOGGLE_TODO',
-	id: 2
-});
+	getToggleButtonClasses(completed) {
+		return classNames({
+			'toggle': true,
+			'off': !completed,
+			'on': completed
+		});
+	}
+}
 
-console.log('Current state:');
-console.log(store.getState());
-console.log('--------------');
-
-
-console.log('Dispathccing SET_VISIBILITY_FILTER.');;
-store.dispatch({
-	type: 'SET_VISIBILITY_FILTER',
-	filter: 'SHOW_COMPLETED'
-});
-
-console.log('Current state:');
-console.log(store.getState());
-console.log('--------------');
+const view = () => {
+	render(<Todo 
+		todos={store.getState().todos} 
+		visibilityFilter={store.getState().visibilityFilter}
+	/>, window.react_mount);
+};
 
 
+store.subscribe(view);
+view();
 
 const testRemoveTodo = () => {
 	const stateBefore = [
@@ -143,7 +230,7 @@ const testRemoveTodo = () => {
 		},
 		{
 			id: 1,
-			text: 'Test Add Todo',
+			text: 'Test Remove Todo',
 			completed: true
 		}
 	];
@@ -167,7 +254,6 @@ const testRemoveTodo = () => {
 		todos(stateBefore, action)
 	).toEqual(stateAfter);
 }
-
 const testToggleTodo = () => {
 	const stateBefore = [
 		{
@@ -189,7 +275,7 @@ const testToggleTodo = () => {
 
 	const action = {
 		type: 'TOGGLE_TODO',
-		id: 1	
+		id: 2	
 	};
 
 	const stateAfter = [
@@ -215,7 +301,7 @@ const testToggleTodo = () => {
 
 	expect(
 		todos(stateBefore, action)
-	).toEqual(sateAfter);
+	).toEqual(stateAfter);
 
 };
 
@@ -243,7 +329,73 @@ const testAddTodo = () => {
 	).toEqual(stateAfter);
 };
 
+testToggleTodo();
+testRemoveTodo();
 testAddTodo();
-
 console.log('Todo Tests were completed!');
+
+
 export default todo;
+// console.log('Initial state:');
+// console.log(store.getState());
+// console.log('--------------');
+
+// console.log('Dispathccing ADD_TODO.');;
+// store.dispatch({
+// 	type: 'ADD_TODO',
+// 	id: 0,
+// 	text: 'Learn Redux'
+// });
+
+// console.log('Current state:');
+// console.log(store.getState());
+// console.log('--------------');
+
+// console.log('Dispathccing ADD_TODO.');;
+// store.dispatch({
+// 	type: 'ADD_TODO',
+// 	id: 1,
+// 	text: 'Change State'
+// });
+
+// console.log('Dispathccing ADD_TODO.');;
+// store.dispatch({
+// 	type: 'ADD_TODO',
+// 	id: 2,
+// 	text: 'Remove Second Todo'
+// });
+
+// console.log('Current state:');
+// console.log(store.getState());
+// console.log('--------------');
+
+// console.log('Dispathccing REMOVE_TODO.');;
+// store.dispatch({
+// 	type: 'REMOVE_TODO',
+// 	id: 1
+// });
+
+// console.log('Current state:');
+// console.log(store.getState());
+// console.log('--------------');
+
+// console.log('Dispathccing TOGGLE_TODO.');;
+// store.dispatch({
+// 	type: 'TOGGLE_TODO',
+// 	id: 2
+// });
+
+// console.log('Current state:');
+// console.log(store.getState());
+// console.log('--------------');
+
+
+// console.log('Dispathccing SET_VISIBILITY_FILTER.');;
+// store.dispatch({
+// 	type: 'SET_VISIBILITY_FILTER',
+// 	filter: 'SHOW_COMPLETED'
+// });
+
+// console.log('Current state:');
+// console.log(store.getState());
+// console.log('--------------');
