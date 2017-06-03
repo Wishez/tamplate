@@ -3,19 +3,19 @@
   THIRD PARTY
 
 ***********/
-@import "font-awesome-sprockets";
-@import "font-awesome";
+// Uncomment, if you need "font-awesome"
+// @import "font-awesome-sprockets";
+// @import "font-awesome";
 @import 'bootstrap';
 @import 'bootstrap-sprockets';
 @import "breakpoint";
-@import 'susy';
+@import "susy";
 /**********
 
   CUSTOM
 
 ***********/
 // Main files.
-@import "../fonts/fonts.scss";
 @import "../blocks/custom/custom.scss";
 @import "../blocks/header/header.scss";
 @import "../blocks/footer/footer.scss";

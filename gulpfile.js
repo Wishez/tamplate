@@ -49,7 +49,7 @@ const settings = {
 /* Static files
 /* ----------------- */
 
-gulp.task('bundle', ['js', 'scss', 'images', 'html', 'fonts', 'components'], () => {
+gulp.task('bundle', ['js', 'scss', 'images', 'html', 'fonts'], () => {
   browserSync.init({
     server: {
       baseDir: settings.build
@@ -62,7 +62,7 @@ gulp.task('bundle', ['js', 'scss', 'images', 'html', 'fonts', 'components'], () 
   gulp.watch(settings.src + '/**/*.scss', ['scss']).on('change', browserSync.reload);
   gulp.watch(settings.src + '/img/**/*.*', ['images']).on('change', browserSync.reload);
   gulp.watch(settings.src + '/**/*.pug', ['html']).on('change', browserSync.reload);
-  gulp.watch(settings.src + '/**/*.js', ['js', 'components']).on('change', browserSync.reload);
+  gulp.watch(settings.src + '/**/*.js', ['js']).on('change', browserSync.reload);
   gulp.watch('./app/**/*').on('change', browserSync.reload);
 });
 
@@ -93,11 +93,11 @@ gulp.task('js', () => {
     .pipe(gulp.dest(settings.build + '/js'));
 });
 
-gulp.task('components', () => {
+/* gulp.task('components', () => {
   //let components  = glob.sync('./blocks/components/*.js');
   return browserify({
       transform: ['hbsfy', 'envify'],
-      entries: settings.src + '/blocks/components/Blog_Playing.js',
+      entries: settings.src + '/blocks/components/SomeFile.js',
       //entries: components,
       debug: true
     })
@@ -110,11 +110,11 @@ gulp.task('components', () => {
       sourceMapsAbsolute: true
     })
     .bundle()
-    .pipe(source('Blog_Playing.js'))
+    .pipe(source('SomeFile.js'))
     .pipe(buffer())
     .pipe(uglify())
     .pipe(gulp.dest(settings.build + '/components'));
-})
+}) */
 gulp.task('jsmin', () => {
   return browserify({
       transform: ['hbsfy', 'envify'], 

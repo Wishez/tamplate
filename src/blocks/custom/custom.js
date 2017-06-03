@@ -7,28 +7,14 @@ $(window).resize(() => {
   else  
     navListStyle.display = 'none';
 });
+
 $(function() {
 
-  $('.header').fadeIn('slow');
-  $('#main').fadeIn('slow');
-  $('footer').fadeIn('slow');
+  // $('.header').fadeIn('slow');
+  // $('#main').fadeIn('slow');
+  // $('footer').fadeIn('slow');
 
   $(document).on('click', '#openMenuButton', openMenu);
-
-  const $navList = $('#navList');
-  let isOpen = false;
-
-  function openMenu(e) {
-    console.log(isOpen);
-    console.log($navList);
-    if (!isOpen) {
-      isOpen = true;
-      $navList.show('fast'); 
-    } else {
-      isOpen = false;
-      $navList.hide('fast');
-    }
-  }
 
   $(document).on('click', '.not-follow', openUrlInNewWindow);
 

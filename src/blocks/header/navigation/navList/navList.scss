@@ -1,10 +1,5 @@
 .navList {
-  display: inline-flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
-  font-size: (24em / 16);
-  list-style: none;
+  
   width: span(12);
   @include breakpoint($sm) {
     font-size: (20em / 16);
