@@ -23,7 +23,8 @@ const gulp = require('gulp'),
       cleanCSS = require('gulp-clean-css'),
       gutil = require('gulp-util'),
       glob = require('glob'),
-      envify = require('envify');
+      envify = require('envify'),
+      manifest = require('gulp-manifest');
 
 
 
@@ -45,26 +46,8 @@ const settings = {
                    'node_modules/font-awesome-sass/assets/stylesheets/'];
 
 
-/* ----------------- */
-/* Static files
-/* ----------------- */
 
-gulp.task('bundle', ['js', 'scss', 'images', 'html', 'fonts'], () => {
-  browserSync.init({
-    server: {
-      baseDir: settings.build
-    },
-    open: false,
-    port: 9000,
-    reloadDelay: 2200
-  });
 
-  gulp.watch(settings.src + '/**/*.scss', ['scss']).on('change', browserSync.reload);
-  gulp.watch(settings.src + '/img/**/*.*', ['images']).on('change', browserSync.reload);
-  gulp.watch(settings.src + '/**/*.pug', ['html']).on('change', browserSync.reload);
-  gulp.watch(settings.src + '/**/*.js', ['js']).on('change', browserSync.reload);
-  gulp.watch('./app/**/*').on('change', browserSync.reload);
-});
 
 
 /* ----------------- */
@@ -115,6 +98,19 @@ gulp.task('js', () => {
     .pipe(uglify())
     .pipe(gulp.dest(settings.build + '/components'));
 }) */
+
+gulp.task('manifest', () => {
+  gulp.src(settings.build + '/**/*')
+    .pipe(manifest({
+      hash: true,
+      preferOnline: true,
+      network: ['*'],
+      filename: 'app.manifest',
+      exclude: 'app.manifest'
+    }))
+    .pipe(gulp.dest(settings.build));
+});
+
 gulp.task('jsmin', () => {
   return browserify({
       transform: ['hbsfy', 'envify'], 
@@ -220,5 +216,30 @@ gulp.task('clean', function () {
 /* Predefined
 /* ----------------- */
 
-gulp.task('start', ['bundle']);  // development
-gulp.task('deploy', ['html', 'css', 'jsmin', 'images', 'fonts']);  // production
+gulp.task('bundle', ['js', 'scss', 'images', 'html', 'fonts']);
+
+gulp.task('start', ['bundle'], () => {
+    browserSync.init({
+    server: {
+      baseDir: settings.build
+    },
+    open: false,
+    port: 9000,
+    reloadDelay: 2200
+  });
+
+  gulp.watch(settings.src + '/**/*.scss', ['scss']).on('change', browserSync.reload);
+  gulp.watch(settings.src + '/img/**/*.*', ['images']).on('change', browserSync.reload);
+  gulp.watch(settings.src + '/**/*.pug', ['html']).on('change', browserSync.reload);
+  gulp.watch(settings.src + '/**/*.js', ['js']).on('change', browserSync.reload);
+  //gulp.watch('./**/*', []).on('change', browserSync.reload);
+});  // development
+gulp.task('deploy', ['html', 'css', 'jsmin', 'images', 'fonts', 'manifest'], () => {
+  process.stdout.write("Setting NODE_ENV to 'production'" + "\n");
+  process.env.NODE_ENV = 'production';
+  if (process.env.NODE_ENV != 'production') {
+    throw new Error("Failed to set NODE_ENV to production!!!!");
+  } else {
+    process.stdout.write("Successfully set NODE_ENV to production" + "\n");
+  }
+});  // production

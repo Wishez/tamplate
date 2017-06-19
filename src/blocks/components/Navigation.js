@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import { Icon } from 'semantic-ui-react';
 
 export default class Navigation extends Component {
   constructor(props) {
@@ -85,7 +86,7 @@ export default class Navigation extends Component {
             <span className='sr-only'> 
               Toggle navigation
             </span>
-            <Icon name='bars' />
+            <Icon name='bars' size='big' />
           </button>
           <ul className='navList'
               id='navList'>
