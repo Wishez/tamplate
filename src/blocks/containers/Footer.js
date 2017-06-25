@@ -3,7 +3,7 @@ import { Icon } from 'semantic-ui-react';
 
 const Footer = () => (
   <footer className='footer'> 
-    <div className='container'> 
+    <div className='ui container'> 
       <ul className='footerContacts'>
         <li className='footerContactsItem'>
           <a href='mailto:renome@intrenalmail.ru'

@@ -43,7 +43,8 @@ const settings = {
       scssPathes = ['node_modules/susy/sass', 
                     'node_modules/breakpoint-sass/stylesheets',
                    'node_modules/bootstrap-sass/assets/stylesheets',
-                   'node_modules/font-awesome-sass/assets/stylesheets/'];
+                   'node_modules/font-awesome-sass/assets/stylesheets/',
+                   'node_modules/semantic-ui-sass/',];
 
 
 
@@ -218,13 +219,13 @@ gulp.task('clean', function () {
 
 gulp.task('bundle', ['js', 'scss', 'images', 'html', 'fonts']);
 
-gulp.task('start', ['bundle'], () => {
+gulp.task('default', ['bundle'], () => {
     browserSync.init({
     server: {
       baseDir: settings.build
     },
     open: false,
-    port: 9000,
+    port: 9020,
     reloadDelay: 2200
   });
 
