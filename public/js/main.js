@@ -112339,9 +112339,6 @@ exports.default = Logo;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
@@ -112349,194 +112346,122 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = require('react-router-dom');
 
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
 var _semanticUiReact = require('semantic-ui-react');
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+// import classNames from 'classnames';
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Navigation = function (_Component) {
-  _inherits(Navigation, _Component);
-
-  function Navigation(props) {
-    _classCallCheck(this, Navigation);
-
-    var _this = _possibleConstructorReturn(this, (Navigation.__proto__ || Object.getPrototypeOf(Navigation)).call(this, props));
-
-    _this.state = {
-      isOpen: false,
-      activAbout: false,
-      activeSecond: false,
-      activeThird: false,
-      activeFourth: false
-    };
-
-    _this.getActiveClass = _this.getActiveClass.bind(_this);
-    _this.openMenu = _this.openMenu.bind(_this);
-    _this.changeActiveSecond = _this.changeActiveSecond.bind(_this);
-    _this.changeActiveFirst = _this.changeActiveFirst.bind(_this);
-    _this.changeActiveThird = _this.changeActiveThird.bind(_this);
-    _this.changeActiveFourth = _this.changeActiveFourth.bind(_this);
-    _this.cleanActiveState = _this.cleanActiveState.bind(_this);
-    return _this;
-  }
-
-  _createClass(Navigation, [{
-    key: 'openMenu',
-    value: function openMenu() {
-      var $navList = $('#navList');
-
-      if (!this.state.isOpen) {
-        this.setState({ isOpen: true });
-        $navList.show('fast');
-      } else {
-        this.setState({ isOpen: false });
-        $navList.hide('fast');
-      }
-    }
-  }, {
-    key: 'cleanActiveState',
-    value: function cleanActiveState() {
-      this.setState({
-        activeFirst: false,
-        activeSecond: false,
-        activeThird: false,
-        activeFourth: false
-      });
-    }
-  }, {
-    key: 'changeActiveFirst',
-    value: function changeActiveFirst() {
-      this.cleanActiveState();
-
-      this.setState({ activeFirst: true });
-    }
-  }, {
-    key: 'changeActiveSecond',
-    value: function changeActiveSecond() {
-      this.cleanActiveState();
-
-      this.setState({ activeSecond: true });
-    }
-  }, {
-    key: 'changeActiveThird',
-    value: function changeActiveThird() {
-      this.cleanActiveState();
-
-      this.setState({ activeThird: true });
-    }
-  }, {
-    key: 'changeActiveFourth',
-    value: function changeActiveFourth() {
-      this.cleanActiveState();
-
-      this.setState({ activeFourth: true });
-    }
-  }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.changeActiveFirst();
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _state = this.state,
-          activeFirst = _state.activeFirst,
-          activeSecond = _state.activeSecond,
-          activeThird = _state.activeThird,
-          activeFourth = _state.activeFourth;
-
-
-      return _react2.default.createElement(
-        'nav',
-        { className: 'navigaton' },
+var Navigation = function Navigation(_ref) {
+  var activeFirst = _ref.activeFirst,
+      activeSecond = _ref.activeSecond,
+      activeThird = _ref.activeThird,
+      activeFourth = _ref.activeFourth,
+      activeFifth = _ref.activeFifth,
+      openMenu = _ref.openMenu,
+      changeActiveFirst = _ref.changeActiveFirst,
+      changeActiveSecond = _ref.changeActiveSecond,
+      changeActiveThird = _ref.changeActiveThird,
+      changeActiveFourth = _ref.changeActiveFourth,
+      changeActiveFifth = _ref.changeActiveFifth,
+      closeMenu = _ref.closeMenu,
+      getActiveClasses = _ref.getActiveClasses;
+  return _react2.default.createElement(
+    'nav',
+    { className: 'navigaton' },
+    _react2.default.createElement(
+      'button',
+      { id: 'openMenuButton',
+        className: 'navigation__openMenuButton visible-xs',
+        onClick: openMenu },
+      _react2.default.createElement(_semanticUiReact.Icon, { name: 'bars', size: 'big' })
+    ),
+    _react2.default.createElement(
+      'ul',
+      { className: 'navList',
+        id: 'navList' },
+      _react2.default.createElement(_semanticUiReact.Icon, { id: 'closeMenuButton',
+        className: 'navigation__closeMenuButton',
+        name: 'close',
+        size: 'big',
+        color: 'white',
+        onClick: closeMenu }),
+      _react2.default.createElement(
+        'li',
+        { className: getActiveClasses(activeFirst) },
         _react2.default.createElement(
-          'button',
-          { id: 'openMenuButton',
-            className: 'navigation__openMenuButton visible-xs',
-            onClick: this.openMenu },
-          _react2.default.createElement(
-            'span',
-            { className: 'sr-only' },
-            'Toggle navigation'
-          ),
-          _react2.default.createElement(_semanticUiReact.Icon, { name: 'bars', size: 'big' })
-        ),
-        _react2.default.createElement(
-          'ul',
-          { className: 'navList',
-            id: 'navList' },
-          _react2.default.createElement(
-            'li',
-            { className: this.getActiveClass(activeFirst) },
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/',
-                className: 'navItem__refer',
-                onClick: this.changeActiveFirst },
-              'Fisrt nav item'
-            )
-          ),
-          _react2.default.createElement(
-            'li',
-            { className: this.getActiveClass(activeSecond) },
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/second',
-                className: 'navItem__refer',
-                onClick: this.changeActiveSecond },
-              'Second nav item'
-            )
-          ),
-          _react2.default.createElement(
-            'li',
-            { className: this.getActiveClass(activeThird) },
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/third',
-                className: 'navItem__refer',
-                onClick: this.changeActiveThird },
-              'Third nav item'
-            )
-          ),
-          _react2.default.createElement(
-            'li',
-            { className: this.getActiveClass(activeFourth) },
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/fourth',
-                className: 'navItem__refer',
-                onClick: this.changeActiveFourth },
-              'Fourth nav item'
-            )
-          )
+          _reactRouterDom.Link,
+          { to: '/',
+            className: 'navItem__refer',
+            onClick: changeActiveFirst },
+          '\u0413\u043B\u0430\u0432\u043D\u0430\u044F'
         )
-      );
-    }
-  }, {
-    key: 'getActiveClass',
-    value: function getActiveClass(state) {
-      return (0, _classnames2.default)({
-        'navItem': true,
-        'active': state
-      });
-    }
-  }]);
-
-  return Navigation;
-}(_react.Component);
+      ),
+      _react2.default.createElement(
+        'li',
+        { className: getActiveClasses(activeSecond) },
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/second',
+            className: 'navItem__refer',
+            onClick: changeActiveSecond },
+          '\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F'
+        )
+      ),
+      _react2.default.createElement(
+        'li',
+        { className: getActiveClasses(activeThird) },
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/third',
+            className: 'navItem__refer',
+            onClick: changeActiveThird },
+          '\u041D\u0430\u0447\u0430\u0442\u044C \u0438\u0433\u0440\u0430\u0442\u044C'
+        )
+      ),
+      _react2.default.createElement(
+        'li',
+        { className: getActiveClasses(activeFourth) },
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/fourth',
+            className: 'navItem__refer',
+            onClick: changeActiveFourth },
+          '\u041A\u043E\u043D\u0442\u0430\u043A\u0442\u044B'
+        )
+      ),
+      _react2.default.createElement(
+        'li',
+        { className: getActiveClasses(activeFifth) },
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/fifth',
+            className: 'navItem__refer',
+            onClick: changeActiveFifth },
+          '\u041F\u0440\u0430\u0432\u0438\u043B\u0430'
+        )
+      ),
+      _react2.default.createElement(
+        'li',
+        { className: 'navItem' },
+        _react2.default.createElement(
+          'a',
+          { className: 'navItem__refer',
+            href: '#' },
+          '\u0424\u043E\u0440\u0443\u043C'
+        )
+      )
+    )
+  );
+};
 
 exports.default = Navigation;
 
-},{"classnames":24,"react":997,"react-router-dom":958,"semantic-ui-react":1189}],1327:[function(require,module,exports){
+},{"prop-types":801,"react":997,"react-router-dom":958,"semantic-ui-react":1189}],1327:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -112675,7 +112600,7 @@ var Footer = function Footer() {
     { className: 'footer' },
     _react2.default.createElement(
       'div',
-      { className: 'container' },
+      { className: 'ui container' },
       _react2.default.createElement(
         'ul',
         { className: 'footerContacts' },
@@ -112740,9 +112665,9 @@ var _Logo = require('./../components/Logo');
 
 var _Logo2 = _interopRequireDefault(_Logo);
 
-var _Navigation = require('./../components/Navigation');
+var _NavContainer = require('./NavContainer.js');
 
-var _Navigation2 = _interopRequireDefault(_Navigation);
+var _NavContainer2 = _interopRequireDefault(_NavContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -112752,20 +112677,20 @@ var Header = function Header() {
     { className: 'header' },
     _react2.default.createElement(
       'div',
-      { className: 'container' },
+      { className: 'ui container' },
       _react2.default.createElement(_Logo2.default, null),
-      _react2.default.createElement(_Navigation2.default, null)
+      _react2.default.createElement(_NavContainer2.default, null)
     )
   );
 };
 
 exports.default = Header;
 
-},{"./../components/Logo":1325,"./../components/Navigation":1326,"react":997}],1332:[function(require,module,exports){
+},{"./../components/Logo":1325,"./NavContainer.js":1333,"react":997}],1332:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _react = require('react');
@@ -112785,59 +112710,74 @@ var _reactFadeIn2 = _interopRequireDefault(_reactFadeIn);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Main = function Main() {
-  return _react2.default.createElement(
-    'main',
-    null,
-    _react2.default.createElement(
-      Switch,
-      null,
-      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', render: function render() {
-          return _react2.default.createElement(
-            _reactFadeIn2.default,
-            null,
+    return _react2.default.createElement(
+        'main',
+        null,
+        _react2.default.createElement(
+            'div',
+            { className: 'ui container' },
             _react2.default.createElement(
-              'section',
-              null,
-              'Hello world!'
+                _reactRouterDom.Switch,
+                null,
+                _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', render: function render() {
+                        return _react2.default.createElement(
+                            _reactFadeIn2.default,
+                            null,
+                            _react2.default.createElement(
+                                'section',
+                                null,
+                                'Hello world!'
+                            )
+                        );
+                    } }),
+                _react2.default.createElement(_reactRouterDom.Route, { path: '/second', render: function render() {
+                        return _react2.default.createElement(
+                            _reactFadeIn2.default,
+                            null,
+                            _react2.default.createElement(
+                                'section',
+                                null,
+                                'It is second section!'
+                            )
+                        );
+                    } }),
+                _react2.default.createElement(_reactRouterDom.Route, { path: '/third', render: function render() {
+                        return _react2.default.createElement(
+                            _reactFadeIn2.default,
+                            null,
+                            _react2.default.createElement(
+                                'section',
+                                null,
+                                'It is third section!'
+                            )
+                        );
+                    } }),
+                _react2.default.createElement(_reactRouterDom.Route, { path: '/fourth', render: function render() {
+                        return _react2.default.createElement(
+                            _reactFadeIn2.default,
+                            null,
+                            _react2.default.createElement(
+                                'section',
+                                null,
+                                'It is fourth section!'
+                            )
+                        );
+                    } }),
+                _react2.default.createElement(_reactRouterDom.Route, { path: '/fifth', render: function render() {
+                        return _react2.default.createElement(
+                            _reactFadeIn2.default,
+                            null,
+                            _react2.default.createElement(
+                                'section',
+                                null,
+                                'It is fifth section!'
+                            )
+                        );
+                    } }),
+                _react2.default.createElement(_reactRouterDom.Route, { component: _NotFound2.default })
             )
-          );
-        } }),
-      _react2.default.createElement(_reactRouterDom.Route, { path: '/second', render: function render() {
-          return _react2.default.createElement(
-            _reactFadeIn2.default,
-            null,
-            _react2.default.createElement(
-              'section',
-              null,
-              'It is second section!'
-            )
-          );
-        } }),
-      _react2.default.createElement(_reactRouterDom.Route, { path: '/third', render: function render() {
-          return _react2.default.createElement(
-            _reactFadeIn2.default,
-            null,
-            _react2.default.createElement(
-              'section',
-              null,
-              'It is third section!'
-            )
-          );
-        } }),
-      _react2.default.createElement(_reactRouterDom.Route, { path: '/fourth', render: function render() {
-          return _react2.default.createElement(
-            _reactFadeIn2.default,
-            null,
-            _react2.default.createElement(
-              'section',
-              null,
-              'It is fourth section!'
-            )
-          );
-        } }),
-      _react2.default.createElement(_reactRouterDom.Route, { component: _NotFound2.default })
-    )
-  );
+        )
+    );
 };
 
 exports.default = Main;
@@ -112845,20 +112785,139 @@ exports.default = Main;
 },{"./../components/NotFound":1327,"react":997,"react-fade-in":931,"react-router-dom":958}],1333:[function(require,module,exports){
 'use strict';
 
-$(window).resize(function () {
-  var $navList = $('#navList'),
-      navListStyle = $navList[0].style;
-
-  if (window.innerWidth > 767) navListStyle.display = 'inline-flex';else navListStyle.display = 'none';
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
+exports.default = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Navigation = require('./../components/Navigation');
+
+var _Navigation2 = _interopRequireDefault(_Navigation);
+
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NavContainer = function (_Component) {
+  _inherits(NavContainer, _Component);
+
+  function NavContainer() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, NavContainer);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = NavContainer.__proto__ || Object.getPrototypeOf(NavContainer)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      isOpen: false,
+      activAbout: false,
+      activeSecond: false,
+      activeThird: false,
+      activeFourth: false
+    }, _this.openMenu = function () {
+      var $navList = $('#navList');
+      var $closeButton = $('#closeMenuButton');
+      if (!_this.state.isOpen) {
+        _this.setState({ isOpen: true });
+        $closeButton.show();
+        $navList.show('fast');
+      } else {
+        _this.setState({ isOpen: false });
+        $navList.hide('fast');
+        $closeButton.hide();
+      }
+    }, _this.cleanActiveStateAndCloseMenuIfNeed = function () {
+      _this.setState({
+        activeFirst: false,
+        activeSecond: false,
+        activeThird: false,
+        activeFourth: false,
+        activeFifth: false
+      });
+      _this.closeMenu();
+    }, _this.changeActiveFirst = function () {
+      _this.cleanActiveStateAndCloseMenuIfNeed();
+
+      _this.setState({ activeFirst: true });
+    }, _this.changeActiveSecond = function () {
+      _this.cleanActiveStateAndCloseMenuIfNeed();
+
+      _this.setState({ activeSecond: true });
+    }, _this.changeActiveThird = function () {
+      _this.cleanActiveStateAndCloseMenuIfNeed();
+
+      _this.setState({ activeThird: true });
+    }, _this.changeActiveFourth = function () {
+      _this.cleanActiveStateAndCloseMenuIfNeed();
+      _this.setState({ activeFourth: true });
+    }, _this.changeActiveFifth = function () {
+      _this.cleanActiveStateAndCloseMenuIfNeed();
+      _this.setState({ activeFifth: true });
+    }, _this.getActiveClasses = function (state) {
+      return (0, _classnames2.default)({
+        'navItem': true,
+        'active': state
+      });
+    }, _this.closeMenu = function () {
+      var $navList = $('#navList');
+      if (window.innerWidth < 767) $navList.hide('fast');
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(NavContainer, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.changeActiveFirst();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(_Navigation2.default, _extends({}, this.state, {
+        changeActiveFirst: this.changeActiveFirst,
+        changeActiveSecond: this.changeActiveSecond,
+        changeActiveThird: this.changeActiveThird,
+        changeActiveFourth: this.changeActiveFourth,
+        changeActiveFifth: this.changeActiveFifth,
+        getActiveClasses: this.getActiveClasses,
+        openMenu: this.openMenu,
+        closeMenu: this.closeMenu
+      }));
+    }
+  }]);
+
+  return NavContainer;
+}(_react.Component);
+
+exports.default = NavContainer;
+
+},{"./../components/Navigation":1326,"classnames":24,"react":997}],1334:[function(require,module,exports){
+'use strict';
 
 $(function () {
 
   // $('.header').fadeIn('slow');
   // $('#main').fadeIn('slow');
   // $('footer').fadeIn('slow');
-
-  $(document).on('click', '#openMenuButton', openMenu);
 
   $(document).on('click', '.not-follow', openUrlInNewWindow);
 
@@ -112873,14 +112932,9 @@ $(function () {
 
     window.open(url);
   } // end openUrlInNewWindow
-
-
-  $(document).on('click', '.navItem__refer', function (e) {
-    if (window.innerWidth < 767) $navList.hide('fast');
-  }); // end click
 }); // end ready
 
-},{}],1334:[function(require,module,exports){
+},{}],1335:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -112915,7 +112969,7 @@ var store = (0, _configureStore2.default)();
   )
 ), document.getElementById('root'));
 
-},{"./containers/App":1329,"./store/configureStore.js":1338,"react":997,"react-dom":803,"react-redux":941,"react-router-dom":958}],1335:[function(require,module,exports){
+},{"./containers/App":1329,"./store/configureStore.js":1339,"react":997,"react-dom":803,"react-redux":941,"react-router-dom":958}],1336:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -112930,7 +112984,7 @@ var connect_form = {
 
 exports.default = connect_form;
 
-},{"redux-form":1041}],1336:[function(require,module,exports){
+},{"redux-form":1041}],1337:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -112956,7 +113010,7 @@ var rootReducer = (0, _redux.combineReducers)({
 
 exports.default = rootReducer;
 
-},{"./connect_form.js":1335,"./visibilityFilter.js":1337,"redux":1084}],1337:[function(require,module,exports){
+},{"./connect_form.js":1336,"./visibilityFilter.js":1338,"redux":1084}],1338:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -112979,7 +113033,7 @@ var visibilityFilter = function visibilityFilter() {
 
 exports.default = visibilityFilter;
 
-},{"./../constants/actionTypes.js":1328}],1338:[function(require,module,exports){
+},{"./../constants/actionTypes.js":1328}],1339:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -113007,7 +113061,7 @@ function configureStore(initialState) {
   return store;
 }
 
-},{"../reducers/index.js":1336,"redux":1084,"redux-thunk":1078}],1339:[function(require,module,exports){
+},{"../reducers/index.js":1337,"redux":1084,"redux-thunk":1078}],1340:[function(require,module,exports){
 'use strict';
 
 require('jquery');
@@ -113024,6 +113078,6 @@ require('./../blocks/custom/custom.js');
 
 require('./../blocks/index.js');
 
-},{"./../blocks/custom/custom.js":1333,"./../blocks/index.js":1334,"babel-polyfill":1,"bootstrap-sass":23,"jquery":448,"semantic-ui-sass":1318,"whatwg-fetch":1324}]},{},[1339])
+},{"./../blocks/custom/custom.js":1334,"./../blocks/index.js":1335,"babel-polyfill":1,"bootstrap-sass":23,"jquery":448,"semantic-ui-sass":1318,"whatwg-fetch":1324}]},{},[1340])
 
 //# sourceMappingURL=main.js.map

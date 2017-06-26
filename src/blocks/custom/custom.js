@@ -1,12 +1,3 @@
-$(window).resize(() => {
-  let $navList = $('#navList'),
-      navListStyle = $navList[0].style;
-  
-  if (window.innerWidth > 767) 
-    navListStyle.display = 'inline-flex';
-  else  
-    navListStyle.display = 'none';
-});
 
 $(function() {
 
@@ -28,10 +19,4 @@ $(function() {
     window.open(url);
   }// end openUrlInNewWindow
 
-
-  $(document).on('click', '.navItem__refer', (e) => {
-    if (window.innerWidth  < 767)
-      $navList.hide('fast');
-
-  }); // end click
 });// end ready
