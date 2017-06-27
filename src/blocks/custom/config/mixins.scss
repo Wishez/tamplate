@@ -1,6 +1,7 @@
 @mixin round() {
   border-radius: 50%;
 }
+
 @mixin xs-center-text() {
   @include breakpoint($xs) {
     text-align: center;
@@ -18,11 +19,13 @@
     background-color: #{$color};
   }
 }
+
 @mixin center-block {
   margin-left: auto !important;
   margin-right: auto !important;
   display: block !important;
 }
+
 @mixin responsive-background($padding-bottom: false, $url: false, $attachment: false) {
   background: center top no-repeat;
   background-size: cover;
@@ -36,9 +39,15 @@
     background-image: url('#{$url}');
   }
 }
+
 @mixin smooth-transition-color {
   transition: color 0.5s;
 }
+
+@mixin smooth-transition-link {
+  transition: color 0.5s, background-color 0.5s;
+}
+
 @mixin smooth-transition-button($font-color, $background-color) {
   transition: color 0.5s, background-color 0.5s, transform 0.1s;
   &:hover {
@@ -49,9 +58,42 @@
     transform: translateY(3px);
   }
 }
+
 @mixin flexable($flex, $dir_wrap, $content, $align) {
   display: #{$flex};
   flex-flow: #{$dir_wrap};
   justify-content: #{$content};
   align-items: #{$align};
+}
+
+@mixin link-colors(
+  $color: $baseLinkColor,
+  $hover-color: $baseHoverLinkColor,
+  $active-color: $baseActiveLinkColor,
+  $visited-color: $baseVisitedLinkColor,
+  $focus-color: $baseFocusLinkColor,
+  $one-color: false
+) {
+
+  @if ($one-color) {
+    $color: $one-color;
+    $hover-color: $one-color;
+    $active-color: $one-color;
+    $visited-color: $one-color;
+    $focus-color: $one-color;
+  }
+
+  color: #{$color};
+  &:hover {
+    color: #{$hover-color};
+  }
+  &:active {
+    color: #{$active-color}; 
+  }
+  &:visited {
+    color: #{$visited-color};  
+  }
+  &:focus {
+    color: #{$focus-color}; 
+  }
 }

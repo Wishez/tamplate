@@ -17,6 +17,10 @@ fonts/fontawesome-webfont.ttf
 fonts/fontawesome-webfont.woff
 fonts/fontawesome-webfont.woff2
 fonts/FontAwesome.otf
+fonts/octicons-local.ttf
+fonts/octicons.svg
+fonts/octicons.ttf
+fonts/octicons.woff
 fonts/slick.eot
 fonts/slick.svg
 fonts/slick.ttf
@@ -67,4 +71,4 @@ NETWORK:
 SETTINGS:
 prefer-online
 
-# hash: 139e816b2636f578c8637f18942ad1fc2ad1ae324dab1c0b7c303f1b0fbfa13e
+# hash: 11f83c4ff8510324014d2c0049ffcd417f9c65692a0e94b42d4c82aa4ea239e1

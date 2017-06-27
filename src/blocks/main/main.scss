@@ -1,5 +1,5 @@
-#main  {
-	padding: 5% 0;
+.main  {
+	height: 100vh;
 	@include breakpoint($xs) {
 		padding: 15% 0;
 	}

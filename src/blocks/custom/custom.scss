@@ -7,6 +7,15 @@
 @import 'config/sizes.scss';
 @import 'config/animation.scss';
 
+@import 'config/flex.scss';
+@import 'short_hand_classes/margins.scss';
+@import 'short_hand_classes/visible.scss';
+@import 'short_hand_classes/aligned.scss';
+@import 'short_hand_classes/float.scss';
+@import 'short_hand_classes/paddings.scss';
+@import 'short_hand_classes/title.scss';
+@import 'short_hand_classes/paragraph.scss';
+
 // Custom styles
 html, body {
   min-height: 100%;
@@ -47,29 +56,17 @@ body {
   hyphenate-lines: 3;
   color: $baseColorFont;
 }
+
 button, a {
   cursor: pointer;
 }
 
 a {
-  color: $baseLinkColor;
+  @include link-colors;
   &:hover, &:visited, &:active, &:focus {
     text-decoration: none;
   }
   &:hover {
-    color: $baseHoverLinkColor;
-  }
-  &:visited {
-    color: $baseVisitedLinkColor;
-  }
-  &:active {
-    color: $baseActiveLinkColor;
-  }
-  &:focus {
-    color: $baseFocusLinkColor;
   }
 }
 
-@import 'config/flex.scss';
-@import 'short_hand_classes/title.scss';
-@import 'short_hand_classes/paragraph.scss';

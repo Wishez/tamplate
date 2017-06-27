@@ -33,7 +33,6 @@ const Navigation = ({
           className='navigation__closeMenuButton'
           name='close'
           size='big'
-          color='white'
           onClick={closeMenu} />
         
         <li className={getActiveClasses(activeFirst)}>
