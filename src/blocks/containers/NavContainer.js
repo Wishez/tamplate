@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
 import Navigation from './../components/Navigation';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { selectNavigationItem } from './../actions/navigationActions.js';
 
-export default class NavContainer extends Component {
-  state = {
-      isOpen: false,
-      activAbout: false,
-      activeSecond: false,
-      activeThird: false,
-      activeFourth: false
-  };
-  
-  componentDidMount() {
-    this.changeActiveFirst();
+class NavContainer extends Component {
+  static PropTypes = { 
+      site: PropTypes.string.isRequired,
+      firstNavItem: PropTypes.object.isRequired,
+      secondNavItem: PropTypes.object.isRequired,
+      thirdNavItem: PropTypes.object.isRequired,
+      fourthNavItem: PropTypes.object.isRequired,
+      fifthNavItem: PropTypes.object.isRequired,
+      dispatch: PropTypes.func.isRequired
   }
+
+  state = {
+      isOpen: false
+  };
 
   openMenu = () => {
     let $navList = $('#navList');
@@ -27,49 +32,21 @@ export default class NavContainer extends Component {
       $navList.hide('fast');
       $closeButton.hide();
     }
-  }
+  };
 
-  cleanActiveStateAndCloseMenuIfNeed = () => {
-    this.setState({
-      activeFirst: false,
-      activeSecond: false,
-      activeThird: false,
-      activeFourth: false,
-      activeFifth: false
-    });
-    this.closeMenu();
+  changeActiveNavigationItem = navigationItem => {
+      const { dispatch } = this.props;
 
-  }
+      dispatch(selectNavigationItem(navigationItem));
+      // Меню закрывается.
+      if (this.state.isOpen)
+          this.closeMenu();
+  };
 
-  changeActiveFirst = () => {
-    this.cleanActiveStateAndCloseMenuIfNeed();
-
-    this.setState({activeFirst: true});
-  }
-  changeActiveSecond = () => {
-    this.cleanActiveStateAndCloseMenuIfNeed();
-
-    this.setState({activeSecond: true});
-  }
-  changeActiveThird = () => {
-    this.cleanActiveStateAndCloseMenuIfNeed();
-
-    this.setState({activeThird: true});
-
-  }
-  changeActiveFourth = () => {
-    this.cleanActiveStateAndCloseMenuIfNeed();
-    this.setState({activeFourth: true});
-
-  }
-  changeActiveFifth = () => {
-    this.cleanActiveStateAndCloseMenuIfNeed();
-    this.setState({activeFifth: true});    
-  }
-
-  getActiveClasses = state => ( 
+  getActiveClasses = (state, site) => ( 
     classNames({
       'navItem': true,
+      [`navItem--${site}`]: true,
       'active': state
     })
   );
@@ -78,18 +55,39 @@ export default class NavContainer extends Component {
     let $navList = $('#navList');
     if (window.innerWidth < 767) $navList.hide('fast');
   }
+
   render() {
     return (
-        <Navigation {...this.state} 
-            changeActiveFirst={this.changeActiveFirst}
-            changeActiveSecond={this.changeActiveSecond}
-            changeActiveThird={this.changeActiveThird}
-            changeActiveFourth={this.changeActiveFourth}
-            changeActiveFifth={this.changeActiveFifth}
+        <Navigation {...this.props}
             getActiveClasses={this.getActiveClasses}
             openMenu={this.openMenu}
             closeMenu={this.closeMenu}
+            changeActiveNavigationItem={this.changeActiveNavigationItem}
         />
     );
   }
 }
+
+
+const mapStateToProps = state => {
+  const { selectedSite, navigation } = state;
+
+  const {
+    firstNavItem,
+    secondNavItem,
+    thirdNavItem,
+    fourthNavItem,
+    fifthNavItem
+  } = navigation;
+
+  return {
+    site: selectedSite,
+    firstNavItem,
+    secondNavItem,
+    thirdNavItem,
+    fourthNavItem,
+    fifthNavItem
+  }
+}
+
+export default connect(mapStateToProps)(NavContainer);

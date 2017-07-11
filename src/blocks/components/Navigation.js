@@ -3,24 +3,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-// import classNames from 'classnames';
 
 const Navigation = ({
-    activeFirst,
-    activeSecond,
-    activeThird,
-    activeFourth,
-    activeFifth,
+    firstNavItem,
+    secondNavItem,
+    thirdNavItem,
+    fourthNavItem,
+    fifthNavItem,
     openMenu,
-    changeActiveFirst,
-    changeActiveSecond,
-    changeActiveThird,
-    changeActiveFourth,
-    changeActiveFifth,
+    changeActiveNavigationItem,
     closeMenu,
-    getActiveClasses
+    getActiveClasses,
+    site
 }) => (
-    <nav className='navigaton'>
+    <nav className={`navigaton navigation--${site}`}>
       <button id='openMenuButton'
         className='navigation__openMenuButton visible-xs'
         onClick={openMenu}>
@@ -35,45 +31,46 @@ const Navigation = ({
           size='big'
           onClick={closeMenu} />
         
-        <li className={getActiveClasses(activeFirst)}>
-          <Link to='/'
-            className='navItem__refer'
-            onClick={changeActiveFirst}>
-            Главная
+        <li className={getActiveClasses(firstNavItem.active, site)}>
+          <Link to={`/${site}`}
+            className={`navItem__refer navItem__refer--${site}`}
+            onClick={() => {
+              changeActiveNavigationItem('firstNavItem');
+            }}>
+            {firstNavItem.name}
           </Link>
         </li>
-        <li className={getActiveClasses(activeSecond)}>
-          <Link to='/second'
-            className='navItem__refer'
-            onClick={changeActiveSecond}>
-            Регистрация
+        <li className={getActiveClasses(secondNavItem.active, site)}>
+          <Link to={`/${site}/registration`}
+            className={`navItem__refer navItem__refer--${site}`}
+            onClick={() => {
+              changeActiveNavigationItem('secondNavItem');
+            }}>
+            {secondNavItem.name}
           </Link>
         </li>
-        <li className={getActiveClasses(activeThird)}>
-          <Link to='/third'
-            className='navItem__refer'
-            onClick={changeActiveThird}>
-            Начать играть
+        <li className={getActiveClasses(thirdNavItem.active, site)}>
+          <Link to={`/${site}/contacts`} 
+            className={`navItem__refer navItem__refer--${site}`}
+            onClick={() => {
+              changeActiveNavigationItem('thirdNavItem');
+            }}>
+            {thirdNavItem.name}
           </Link>
         </li>
-        <li className={getActiveClasses(activeFourth)}>
-          <Link to='/fourth' 
-            className='navItem__refer'
-            onClick={changeActiveFourth}>
-            Контакты
+        <li className={getActiveClasses(fourthNavItem.active, site)}>
+          <Link to={`/${site}/rules`}
+            className={`navItem__refer navItem__refer--${site}`}
+            onClick={() => {
+              changeActiveNavigationItem('fourthNavItem');
+            }}>
+            {fourthNavItem.name}
           </Link>
         </li>
-        <li className={getActiveClasses(activeFifth)}>
-          <Link to='/fifth' 
-            className='navItem__refer'
-            onClick={changeActiveFifth}>
-            Правила
-          </Link>
-        </li>
-        <li className='navItem'>
-          <a className='navItem__refer' 
+        <li className={`navItem navItem--${site}`}>
+          <a className={`navItem__refer navItem__refer--${site} not-follow`}
             href='#'>
-            Форум
+            {fifthNavItem.name}
           </a>
         </li>
       </ul>
@@ -81,3 +78,10 @@ const Navigation = ({
 );
 
 export default Navigation;
+        // <li className={getActiveClasses(activeThird, site)}>
+        //   <Link to={`/${site}/download`}
+        //     className={`navItem__refer navItem__refer--${site}`}
+        //     onClick={changeActiveThird}>
+        //     Скачать
+        //   </Link>
+        // </li>
