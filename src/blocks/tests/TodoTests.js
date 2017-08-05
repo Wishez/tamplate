@@ -14,8 +14,8 @@ export const testToggleTodo = () => {
 		completed: true
 	};
 
-	deepFreeze(todoBefore)
+	deepFreeze(todoBefore);
 	expect(
 		toggleTodo(todoAfter)
-	).toEqual()
-}
+	).toEqual();
+};

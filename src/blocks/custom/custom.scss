@@ -1,4 +1,4 @@
-
+$i: !important;
 @import 'config/grid.scss';
 @import 'config/fonts.scss';
 @import 'config/colors.scss';
@@ -6,7 +6,6 @@
 @import 'config/mixins.scss';
 @import 'config/sizes.scss';
 @import 'config/animation.scss';
-
 @import 'config/flex.scss';
 @import 'short_hand_classes/margins.scss';
 @import 'short_hand_classes/visible.scss';
@@ -15,6 +14,7 @@
 @import 'short_hand_classes/paddings.scss';
 @import 'short_hand_classes/title.scss';
 @import 'short_hand_classes/paragraph.scss';
+@import 'short_hand_classes/sizes.scss';
 
 // Custom styles
 html, body {
@@ -55,11 +55,9 @@ body {
   -webkit-hyphenate-after: 3;
   hyphenate-lines: 3;
   color: $baseColorFont;
+  background-color: $bodyColorBg;
 }
 
-button, a {
-  cursor: pointer;
-}
 
 a {
   @include link-colors;

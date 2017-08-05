@@ -1,5 +1,5 @@
 .title {
-	font-size: (30em / 16); 
+	@extend %fs-28;
 	@include breakpoint($xs) {
 		text-align: center;
 		font-size: (24em / 16);

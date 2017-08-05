@@ -12,8 +12,7 @@ const gulp = require('gulp'),
       sass = require('gulp-sass'),
       pug = require('gulp-pug'),
       autoprefixer = require('gulp-autoprefixer'),
-      imagemin = require('gulp-imagemin'),
-      pngquant = require('imagemin-pngquant'),
+      image = require('gulp-image'),
       browserify = require('browserify'),
       babelify = require('babelify'),
       source = require('vinyl-source-stream'),
@@ -24,7 +23,10 @@ const gulp = require('gulp'),
       gutil = require('gulp-util'),
       glob = require('glob'),
       envify = require('envify'),
-      manifest = require('gulp-manifest');
+      manifest = require('gulp-manifest'),
+      watchify = require('watchify'),
+      jshint = require('gulp-jshint');
+
 
 
 
@@ -40,33 +42,52 @@ const settings = {
   src: './src',
   build: './public'
 }, 
-      scssPathes = ['node_modules/susy/sass', 
-                    'node_modules/breakpoint-sass/stylesheets',
-                   'node_modules/bootstrap-sass/assets/stylesheets',
-                   'node_modules/font-awesome-sass/assets/stylesheets/',
-                   'node_modules/semantic-ui-sass/',];
-
+scssPathes = ['node_modules/susy/sass', 
+              'node_modules/breakpoint-sass/stylesheets',
+             'node_modules/bootstrap-sass/assets/stylesheets',
+             'node_modules/font-awesome-sass/assets/stylesheets/',
+             'node_modules/semantic-ui-sass/',];
 
 
 
 
 
 /* ----------------- */
-/* Scripts
+/* LINT
 /* ----------------- */
+gulp.task('lintsource', () => {
+  return gulp.src('src/**/*.js')
+    .pipe(jshint({
+      'esversion': 6,
+      'moz': true
+    }))
+    .pipe(jshint.reporter('default'));
+});
 
-gulp.task('js', () => {
+/* ----------------- */
+/* SCRIPTS
+/* ----------------- */
+gulp.task('fastjs', () => {
+  process.env.NODE_ENV = 'development';
+
   return browserify({
       transform: ['hbsfy'],
       entries: settings.src + '/js/main.js',
       debug: true
     })
+    .external('moment')
+    .external('cropit')
+    .external('react')
+    .external('react-dom')
+    .external('react-router-dom')
+    .external('redux')
+    .external('react-redux')
     .transform("babelify", {
       plugins: ['react-html-attrs',
        'transform-class-properties',
        'transform-decorators-legacy',
        'transform-object-rest-spread'],
-      presets: ['es2015', 'react'],
+      presets: ['latest', 'react'],
       sourceMapsAbsolute: true
     })
     .bundle()
@@ -77,70 +98,45 @@ gulp.task('js', () => {
     .pipe(gulp.dest(settings.build + '/js'));
 });
 
-/* gulp.task('components', () => {
-  //let components  = glob.sync('./blocks/components/*.js');
-  return browserify({
-      transform: ['hbsfy', 'envify'],
-      entries: settings.src + '/blocks/components/SomeFile.js',
-      //entries: components,
-      debug: true
-    })
-    .transform("babelify", {
-      plugins: ['react-html-attrs',
-       'transform-class-properties',
-       'transform-decorators-legacy',
-       'transform-object-rest-spread'],
-      presets: ['es2015', 'react'],
-      sourceMapsAbsolute: true
-    })
-    .bundle()
-    .pipe(source('SomeFile.js'))
-    .pipe(buffer())
-    .pipe(uglify())
-    .pipe(gulp.dest(settings.build + '/components'));
-}) */
+gulp.task('source', ['lintsource'], () => {
+  process.env.NODE_ENV = 'production';
 
-gulp.task('manifest', () => {
-  gulp.src(settings.build + '/**/*')
-    .pipe(manifest({
-      hash: true,
-      preferOnline: true,
-      network: ['*'],
-      filename: 'app.manifest',
-      exclude: 'app.manifest'
-    }))
-    .pipe(gulp.dest(settings.build));
-});
-
-gulp.task('jsmin', () => {
   return browserify({
-      transform: ['hbsfy', 'envify'], 
+      transform: ['hbsfy'],
       entries: settings.src + '/js/main.js',
       debug: false
     })
+    .external('moment')
+    .external('cropit')
+    .external('react')
+    .external('react-dom')
+    .external('react-router-dom')
+    .external('redux')
+    .external('react-redux')
     .transform("babelify", {
       plugins: ['react-html-attrs',
        'transform-class-properties',
        'transform-decorators-legacy',
        'transform-object-rest-spread'],
-      presets: ['es2015', 'react'],
+      presets: ['latest', 'react'],
       sourceMapsAbsolute: false
     })
     .bundle()
     .pipe(source('main.js'))
     .pipe(buffer())
     .pipe(uglify()).on('error', gutil.log)
-    .pipe(sourcemaps.init({ loadMaps: false }))
+    .pipe(sourcemaps.init())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(settings.build + '/js'));
 });
 
 
+
 /* ----------------- */
-/* SASS
+/* STYLES
 /* ----------------- */
 
-gulp.task('scss', () => {
+gulp.task('faststyles', () => {
   return gulp.src(settings.src + '/scss/**/*.scss')
     .pipe(sourcemaps.init())
     .pipe(sass({
@@ -151,12 +147,11 @@ gulp.task('scss', () => {
       cascade: false
     }))
     .pipe(sourcemaps.write())
-//    .pipe(concat('bundle.css'))
     .pipe(gulp.dest(settings.build + '/css'))
     .pipe(browserSync.stream());
 });
 
-gulp.task('css', () => {
+gulp.task('styles', () => {
   return gulp.src(settings.src + '/scss/**/*.scss')
     .pipe(sass({
       outputStyle: 'compressed',
@@ -165,20 +160,6 @@ gulp.task('css', () => {
     .pipe(autoprefixer())
     .pipe(cleanCSS())
     .pipe(gulp.dest(settings.build + '/css'));
-});
-
-
-/* ----------------- */
-/* Images
-/* ----------------- */
-
-gulp.task('images', () => {
-  return gulp.src(settings.src + '/img/*')
-    .pipe(imagemin({
-      progressive: true,
-      use: [pngquant()]
-    }))
-    .pipe(gulp.dest(settings.build + '/img'));
 });
 
 
@@ -194,53 +175,103 @@ gulp.task('html', () => {
 
 
 /* ----------------- */
-/* Fonts
+/* FONTS
 /* ----------------- */
 
-gulp.task('fonts', function() {
+gulp.task('fonts', () => {
   return gulp.src(settings.src + '/fonts/**/*.*')
     .pipe(gulp.dest(settings.build + '/fonts'));
 });
 
-
 /* ----------------- */
-/* Clean
+/* Images
 /* ----------------- */
-
-gulp.task('clean', function () {
-    return gulp.src('public', { read: false })
-      .pipe(clean());
+gulp.task('fastimages', () => {
+  return gulp.src(settings.src + '/img/**/*')
+    .pipe(gulp.dest(settings.build + '/img'));
 });
 
+gulp.task('images', () => {
+  return gulp.src(settings.src + '/img/**/*')
+    .pipe(image())
+    .pipe(gulp.dest(settings.build + '/img'));
+});
+/* ----------------- */
+/* MEDIA
+/* ----------------- */
+gulp.task('fastmedia', ['fonts', 'fastimages']);
+gulp.task('media', ['fonts', 'images']);
+
+/* ----------------- */
+/* CLEAN
+/* ----------------- */
+
+gulp.task('clean', () => {
+    return gulp.src(settings.build, { read: false })
+      .pipe(clean());
+});
+/* ----------------- */
+/* CACHE
+/* ----------------- */
+gulp.task('manifest', () => {
+  gulp.src(settings.build + '/**/*')
+    .pipe(manifest({
+      hash: true,
+      preferOnline: true,
+      network: ['*'],
+      filename: 'app.manifest',
+      exclude: 'app.manifest'
+    }))
+    .pipe(gulp.dest(settings.build));
+});
 
 /* ----------------- */
 /* Predefined
 /* ----------------- */
+// Uncomment if you need front-end server, but then you need to change pathes in html templates.
+// gulp.task('serve', () => {
+//   browserSync.init({
+//     server: {
+//       baseDir: settings.build
+//     },
+//     open: false,
+//     port: 9020,
+//     reloadDelay: 2200
+//   });
+// });
 
-gulp.task('bundle', ['js', 'scss', 'images', 'html', 'fonts']);
+gulp.task('watch', () => {
+  gulp.watch(settings.src + '**/*.scss', ['faststyles']);
+  gulp.watch(settings.src + 'img/**/*.*', ['fastimages']);
+  gulp.watch(settings.src + 'fonts/**/*.*', ['fonts']);
+  gulp.watch(settings.src + '**/*.pug', ['html']);
+  gulp.watch(settings.src + '**/*.js', ['fastjs']);
+});
 
-gulp.task('default', ['bundle'], () => {
-    browserSync.init({
-    server: {
-      baseDir: settings.build
-    },
-    open: false,
-    port: 9020,
-    reloadDelay: 2200
-  });
+gulp.task('lintfastjs', ['lintsource', 'fastjs']);
+gulp.task('fastlintdevelop', ['html', 'lintfastjs', 'faststyles', 'fastmedia']);
 
-  gulp.watch(settings.src + '/**/*.scss', ['scss']).on('change', browserSync.reload);
-  gulp.watch(settings.src + '/img/**/*.*', ['images']).on('change', browserSync.reload);
-  gulp.watch(settings.src + '/**/*.pug', ['html']).on('change', browserSync.reload);
-  gulp.watch(settings.src + '/**/*.js', ['js']).on('change', browserSync.reload);
-  //gulp.watch('./**/*', []).on('change', browserSync.reload);
-});  // development
-gulp.task('deploy', ['html', 'css', 'jsmin', 'images', 'fonts', 'manifest'], () => {
-  process.stdout.write("Setting NODE_ENV to 'production'" + "\n");
-  process.env.NODE_ENV = 'production';
-  if (process.env.NODE_ENV != 'production') {
-    throw new Error("Failed to set NODE_ENV to production!!!!");
-  } else {
-    process.stdout.write("Successfully set NODE_ENV to production" + "\n");
-  }
-});  // production
+gulp.task('fastdevelop', ['html', 'fastjs', 'faststyles', 'fastmedia']); 
+gulp.task('production', ['source', 'styles', 'media', 'html', 'manifest']);
+
+
+gulp.task('default', ['fastdevelop', 'watch']);  // development
+
+gulp.task('deploy', ['production']);
+
+gulp.task('test', ['lintsource'], () => {
+  var mochify = require('mochify');
+
+  mochify(tests.join(" "), {
+      reporter: 'spec'
+    })
+    .transform("babelify", {
+      plugins: ['react-html-attrs',
+       'transform-class-properties',
+       'transform-decorators-legacy',
+       'transform-object-rest-spread'],
+      presets: ['latest', 'react'],
+      sourceMapsAbsolute: true
+    })
+    .bundle();
+});

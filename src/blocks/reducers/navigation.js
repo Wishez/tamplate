@@ -27,7 +27,7 @@ export const initNavigationState = {
 };
 
 const navigation = (
-	state = initNavigationState,
+	state=initNavigationState,
 	action
 ) => {
 	switch (action.type) {
@@ -36,12 +36,12 @@ const navigation = (
 				...initNavigationState,
 				[action.navigationItem]: {
 					...state[action.navigationItem],
-					active: true,
+					active: true
 				}
-			}
+			};
 		default:
 			return state;
 	}
-}
+};
 
 export default navigation;

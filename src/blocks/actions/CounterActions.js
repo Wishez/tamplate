@@ -15,7 +15,7 @@ const incrementCounter = (list, index) => {
 		...list.slice(0, index),
 		list[index] + 1,
 		...list.slice(index + 1)
-	]
+	];
 }
 
 const decrementCounter = (list, index) => {
@@ -23,7 +23,7 @@ const decrementCounter = (list, index) => {
 		...list.slice(0, index),
 		list[index] - 1,
 		...list.slice(index + 1)
-	]
+	];
 }
 
 const addCounter = (list) => {
@@ -34,7 +34,7 @@ const removeCounter = (list, index) => {
 	return [
 		...list.slice(0, index),
 		...list.slice(index + 1)
-	]
+	];
 };
 
 const testAddCounter = () => {

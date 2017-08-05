@@ -1,12 +1,12 @@
 {
   "name": "Template",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "",
   "author": "Filipp Zhuravlev",
   "license": "ISC",
   "private": true,
   "scripts": {
-    "install": "bower install"
+    "test": "gulp test"
   },
   "browserify": {
     "transform": [
@@ -14,7 +14,7 @@
     ]
   },
   "browser": {
-    "bootstrap": "./bower_components/bootstrap-sass/assets/javascript/bootstrap.js",
+    "bootstrap": "./node_modules/bootstrap-sass/assets/javascript/bootstrap.js",
     "jquery": "./node_modules/jQuery/dist/jquery.js"
   },
   "browserify-shim": {
@@ -32,6 +32,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-env": "^1.1.8",
     "babel-preset-es2015": "^6.22.0",
+    "babel-preset-latest": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babelify": "^7.3.0",
     "bootstrap-sass": "^3.3.7",
@@ -55,7 +56,7 @@
     "gulp-watch": "^4.3.11",
     "handlebars": "^4.0.6",
     "hbsfy": "^2.7.0",
-    "jquery": "^3.2.1",
+    "mochify": "^3.3.0",
     "moment": "^2.18.1",
     "react": "^15.5.4",
     "react-addons-create-fragment": "^15.4.2",
@@ -75,10 +76,12 @@
     "babel-polyfill": "^6.23.0",
     "breakpoint-sass": "^2.7.1",
     "classnames": "^2.2.5",
+    "cropit": "^0.5.1",
     "deep-freeze": "0.0.1",
     "es6-error": "^4.0.2",
     "expect": "^1.20.2",
     "font-awesome-sass": "^4.7.0",
+    "gulp-image": "^2.10.0",
     "gulp-imagemin": "^3.1.1",
     "gulp-jshint": "^2.0.4",
     "gulp-jsonlint": "^1.2.0",
@@ -91,10 +94,12 @@
     "jquery": "^3.2.1",
     "jquery-color": "^1.0.0",
     "jquery-mask-plugin": "^1.14.10",
+    "jquery.caret": "^0.3.1",
     "jquery.easing": "^1.4.1",
     "js-cookie": "^2.1.4",
-    "jshint": "^2.9.4",
+    "jshint": "^2.9.5",
     "prop-types": "^15.5.8",
+    "react-dropzone": "^4.0.0",
     "react-fade-in": "^0.1.4",
     "react-html-parser": "^1.0.3",
     "react-redux": "^5.0.4",
@@ -108,6 +113,8 @@
     "semantic-ui-sass": "^2.2.10-5",
     "susy": "^2.2.12",
     "symbol-observable": "^1.0.4",
+    "watchify": "^3.9.0",
+    "waypoints": "^4.0.1",
     "whatwg-fetch": "^2.0.3"
   }
 }

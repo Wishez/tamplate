@@ -1,5 +1,5 @@
 .paragraph {
-	font-size: (18em / 16);
+	@extend %fs-18;
 	padding-right: 20%;
 	@include breakpoint($xs) {
 		width: span(10);
