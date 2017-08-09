@@ -108,7 +108,6 @@
     "redux-form": "^6.6.3",
     "redux-thunk": "^2.2.0",
     "rimraf": "^2.5.4",
-    "semantic-ui": "^2.2.10",
     "semantic-ui-react": "^0.68.3",
     "semantic-ui-sass": "^2.2.10-5",
     "susy": "^2.2.12",
