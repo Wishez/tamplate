@@ -40,8 +40,9 @@ const hbsfy = require('hbsfy').configure({
 
 const settings = {
   src: './src',
-  build: './public'
+  build: './../static/public'
 }, 
+templatesPath = './../app/templates/',
 scssPathes = ['node_modules/susy/sass', 
               'node_modules/breakpoint-sass/stylesheets',
              'node_modules/bootstrap-sass/assets/stylesheets',
@@ -170,7 +171,7 @@ gulp.task('styles', () => {
 gulp.task('html', () => {
   return gulp.src(settings.src + '/*.pug')
     .pipe(pug())
-    .pipe(gulp.dest(settings.build));
+    .pipe(gulp.dest(templatesPath));
 });
 
 
