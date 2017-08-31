@@ -1,4 +1,4 @@
-import { SELECT_NAVIGATION_ITEM, navigationItems } from './../constants/actionTypes.js';
+import { SELECT_NAVIGATION_ITEM, navigationItems } from './../constants/navigationTypes.js';
 
 
 // Объект описывающий состояние навигации.

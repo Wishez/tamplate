@@ -241,11 +241,11 @@ gulp.task('manifest', () => {
 // });
 
 gulp.task('watch', () => {
-  gulp.watch(settings.src + '**/*.scss', ['faststyles']);
-  gulp.watch(settings.src + 'img/**/*.*', ['fastimages']);
-  gulp.watch(settings.src + 'fonts/**/*.*', ['fonts']);
-  gulp.watch(settings.src + '**/*.pug', ['html']);
-  gulp.watch(settings.src + '**/*.js', ['fastjs']);
+  gulp.watch(settings.src + '/**/*.scss', ['faststyles']);
+  gulp.watch(settings.src + '/img/**/*.*', ['fastimages']);
+  gulp.watch(settings.src + '/fonts/**/*.*', ['fonts']);
+  gulp.watch(settings.src + '/**/*.pug', ['html']);
+  gulp.watch(settings.src + '/**/*.js', ['fastjs']);
 });
 
 gulp.task('lintfastjs', ['lintsource', 'fastjs']);
