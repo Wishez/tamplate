@@ -1,5 +1,6 @@
+| {% load static %}
 doctype
-html.no-js(lang="ru", manifest='./app.manifest')
+html.no-js(lang="ru", manifest="{% static 'public/app.manifest' %}")
   head
     meta(charset="UTF-8")
     meta(
@@ -13,7 +14,7 @@ html.no-js(lang="ru", manifest='./app.manifest')
     link(
         rel="shortcut icon", 
         type="image/x-icon", 
-        href="/media/public/img/favicon.ico"
+        href="{% static 'public/img/favicon.ico' %}"
     )
     | {% block title %}
     | {% endblock %}
@@ -23,14 +24,14 @@ html.no-js(lang="ru", manifest='./app.manifest')
     | {% block content %}
     | {% endblock %}
     include blocks/footer/footer.pug    
-    script(async, src="/media/public/js/main.js", type="application/javascript")
+    script(async, src="{% static 'public/js/main.js' %}", type="application/javascript")
     link(
         rel="stylesheet",
         href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css"
     )
     link(
       rel="stylesheet",
-      href="/media/public/css/main.css",
+      href="{% static 'public/css/main.css' %}",
       type="text/css",
       media='none',
       onload="if (media !== 'all') media = 'all'",
@@ -38,7 +39,7 @@ html.no-js(lang="ru", manifest='./app.manifest')
     ) 
     link(
       rel="stylesheet",
-      href="/media/public/css/ie-10-up.css",
+      href="{% static 'public/css/ie-10-up.css' %}",
       type="text/css",
       media='none',
       onload="if (media !== 'all') media = 'all'",
@@ -49,4 +50,4 @@ html.no-js(lang="ru", manifest='./app.manifest')
     <script async src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js">
     <![endif]-->
 
-    <!--[if IE]><link type="text/css" rel="stylesheet" href="/media/build/css/ie9.css" lazyload="1" /><![endif]-->
+    <!--[if IE]><link type="text/css" rel="stylesheet" href="{% static 'public/css/ie9.css' %}" lazyload="1" /><![endif]-->
