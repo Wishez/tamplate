@@ -68,6 +68,17 @@ gulp.task('lintsource', () => {
 /* ----------------- */
 /* SCRIPTS
 /* ----------------- */
+const vendors = [
+  'moment',
+  'cropit',
+  'react', 
+  'react-dom', 
+  'react-router-dom', 
+  'redux', 
+  'redux-thunk', 
+  'react-redux', 
+  'redux-form'
+];
 gulp.task('fastjs', () => {
   process.env.NODE_ENV = 'development';
 
@@ -76,13 +87,7 @@ gulp.task('fastjs', () => {
       entries: settings.src + '/js/main.js',
       debug: true
     })
-    .external('moment')
-    .external('cropit')
-    .external('react')
-    .external('react-dom')
-    .external('react-router-dom')
-    .external('redux')
-    .external('react-redux')
+    // .external(vendors)
     .transform("babelify", {
       plugins: ['react-html-attrs',
        'transform-class-properties',
@@ -99,6 +104,7 @@ gulp.task('fastjs', () => {
     .pipe(gulp.dest(settings.build + '/js'));
 });
 
+
 gulp.task('source', ['lintsource'], () => {
   process.env.NODE_ENV = 'production';
 
@@ -107,13 +113,7 @@ gulp.task('source', ['lintsource'], () => {
       entries: settings.src + '/js/main.js',
       debug: false
     })
-    .external('moment')
-    .external('cropit')
-    .external('react')
-    .external('react-dom')
-    .external('react-router-dom')
-    .external('redux')
-    .external('react-redux')
+    // .external(vendors)
     .transform("babelify", {
       plugins: ['react-html-attrs',
        'transform-class-properties',
