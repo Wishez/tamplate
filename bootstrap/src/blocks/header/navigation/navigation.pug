@@ -1,3 +1,25 @@
-//- Use in django's templates.
-| {% block nav %}
-| {% endblock %}
+nav.navigaton.navbar.navbar-default(role="navigation")
+  .container
+    .navbar-header.navHeader
+      button.navigaton__openMenuButton.navbar-toggle( 
+        type="button",  
+        data-toggle="collapse",
+        data-target="#navbar_collapse"
+      )
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+      include ./../brand/brand.pug
+    .navbarCollaps.collapse.navbar-collapse#navbar_collapse
+      ul.nav.navbar-nav.navList
+        li.navItem 
+          a.navItem__refer(href="#") О компании
+        li.navItem
+          a.navItem__refer(href="#") Библиотека
+        li.navItem
+          a.navItem__refer(href="#") Курсы
+    .contacts.pull-right
+      button.personalRoomButton Личный кабинет
+      br
+      a.contacts__phone +7 (800) 888-90-88
