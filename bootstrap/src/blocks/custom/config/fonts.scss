@@ -76,38 +76,47 @@ $lightItalicFont: '../fonts/ProximaNova/ProximaNovaLI';
 
 
 
+// Semantic-ui
+// @font-face {
+//   font-family: 'octicons';
+//   font-weight: normal;
+//   font-style: normal;
+//   src: url('octicons.eot');
+//   src: local('../fonts/octicons-local.ttf'),
+//     url('../fonts/octicons.woff') format('woff'),
+//     url('../fonts/octicons.ttf') format('truetype'),
+//     url('../fonts/octicons.svg') format('svg');
+// }
 
+
+
+
+
+
+$secondNameFont: 'comic';
+$secondNormalFont: '../fonts/comic/comic';
+//$secondItalicFont: '../fonts/comic/comic-italic';
+$secondBoldFont: '../fonts/comic/comic-bold';
+//$secondBoldItalicFont: '../fonts/inglobal/inglobalbi';
 @font-face {
-  font-family: 'octicons';
+  font-family: $secondNameFont;
   font-weight: normal;
   font-style: normal;
-  src: url('octicons.eot');
-  src: local('../fonts/octicons-local.ttf'),
-    url('../fonts/octicons.woff') format('woff'),
-    url('../fonts/octicons.ttf') format('truetype'),
-    url('../fonts/octicons.svg') format('svg');
+  src: url('#{$secondNormalFont}.eot');
+  src: local('#{$secondNameFont}'),
+    url('#{$secondNormalFont}.woff') format('woff'),
+    url('#{$secondNormalFont}.ttf') format('truetype'),
+    url('#{$secondNormalFont}.svg') format('svg');
+@font-face {
+  font-family: $secondNameFont;
+  font-weight: bold;
+  font-style: normal;
+  src: url('#{$secondBoldFont}.eot');
+  src: local('#{$secondNameFont}'),
+    url('#{$secondBoldFont}.woff') format('woff'),
+    url('#{$secondBoldFont}.ttf') format('truetype'),
+    url('#{$secondBoldFont}.svg') format('svg');
 }
-
-
-
-
-
-
-//$secondNameFont: 'inglobal';
-//$secondNormalFont: '../fonts/inglobal/inglobal';
-//$secondItalicFont: '../fonts/inglobal/inglobali';
-//$secondBoldFont: '../fonts/inglobal/inglobalb';
-//$secondBoldItalicFont: '../fonts/inglobal/inglobalbi';
-//@font-face {
-//   font-family: $secondNameFont;
-//   font-weight: bold;
-//   font-style: normal;
-//   src: url('#{$secondBoldFont}.eot');
-//   src: local('#{$secondNameFont}'),
-//     url('#{$secondBoldFont}.woff') format('woff'),
-//     url('#{$secondBoldFont}.ttf') format('truetype'),
-//     url('#{$secondBoldFont}.svg') format('svg');
-// }
 // @font-face {
 //   font-family: $secondNameFont;
 //   font-weight: bold;
@@ -128,16 +137,7 @@ $lightItalicFont: '../fonts/ProximaNova/ProximaNovaLI';
 //     url('#{$secondItalicFont}.ttf') format('truetype'),
 //     url('#{$secondItalicFont}.svg') format('svg');
 // }
-// @font-face {
-//   font-family: $secondNameFont;
-//   font-weight: normal;
-//   font-style: normal;
-//   src: url('#{$secondNormalFont}.eot');
-//   src: local('#{$secondNameFont}'),
-//     url('#{$secondNormalFont}.woff') format('woff'),
-//     url('#{$secondNormalFont}.ttf') format('truetype'),
-//     url('#{$secondNormalFont}.svg') format('svg');
-// } 
+} 
 // Uncomment, if you need to use font-awsome.
 // @font-face {
 //   font-family:'FontAwesome';
