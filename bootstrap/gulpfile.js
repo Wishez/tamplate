@@ -70,15 +70,14 @@ gulp.task('lintsource', () => {
 /* ----------------- */
 const vendors = [
   'moment',
-  'cropit',
-  'react', 
-  'react-dom', 
-  'react-router-dom', 
-  'redux', 
-  'redux-thunk', 
-  'react-redux', 
-  'redux-form'
+  'cropit'
 ];
+const babelPlugins = [
+       'transform-class-properties',
+       'transform-decorators-legacy',
+       'transform-object-rest-spread'
+];
+
 gulp.task('fastjs', () => {
   process.env.NODE_ENV = 'development';
 
@@ -89,11 +88,8 @@ gulp.task('fastjs', () => {
     })
     // .external(vendors)
     .transform("babelify", {
-      plugins: ['react-html-attrs',
-       'transform-class-properties',
-       'transform-decorators-legacy',
-       'transform-object-rest-spread'],
-      presets: ['latest', 'react'],
+      plugins: babelPlugins,
+      presets: ['latest'],
       sourceMapsAbsolute: true
     })
     .bundle()
@@ -115,12 +111,9 @@ gulp.task('source', ['lintsource'], () => {
     })
     // .external(vendors)
     .transform("babelify", {
-      plugins: ['react-html-attrs',
-       'transform-class-properties',
-       'transform-decorators-legacy',
-       'transform-object-rest-spread'],
-      presets: ['latest', 'react'],
-      sourceMapsAbsolute: false
+      plugins: babelPlugins,
+      presets: ['latest'],
+      sourceMapsAbsolute: true
     })
     .bundle()
     .pipe(source('main.js'))

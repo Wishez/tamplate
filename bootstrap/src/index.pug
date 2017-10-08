@@ -7,6 +7,10 @@ html.no-js(lang="ru", manifest="app.manifest")
       content="width=device-width, initial-scale=1.0"
     )
     meta(
+      name="description",
+      content=""
+    )
+    meta(
       http-equive="X-UA-Compatible",
       content="IE=edge"
     )
@@ -17,9 +21,9 @@ html.no-js(lang="ru", manifest="app.manifest")
     )
     title Главная
   body
-    include ./blocks/header/header.pug
-    include ./blocks/main/main.pug
-    include ./blocks/footer/footer.pug
+    include ./blocks/templates/_header.pug
+    include ./blocks/templates/_main.pug
+    include ./blocks/templates/_footer.pug
       
 
     script(async, src="public/js/main.js")
