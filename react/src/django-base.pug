@@ -7,6 +7,8 @@ html.no-js(lang="ru", manifest="{% static 'public/app.manifest' %}")
       name="viewport",
       content="width=device-width, initial-scale=1.0"
     )
+    | {% block description %}
+    | {% endblock %}
     meta(
       http-equive="X-UA-Compatible",
       content="IE=edge"
@@ -19,11 +21,12 @@ html.no-js(lang="ru", manifest="{% static 'public/app.manifest' %}")
     | {% block title %}
     | {% endblock %}
   body
-    include blocks/header/header.pug
+    include ./blocks/templates/_header.pug
 
     | {% block content %}
     | {% endblock %}
-    include blocks/footer/footer.pug    
+    include ./blocks/templates/_footer.pug
+    
     script(async, src="{% static 'public/js/main.js' %}", type="application/javascript")
     link(
         rel="stylesheet",

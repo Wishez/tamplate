@@ -6,8 +6,8 @@
 // Uncomment, if you need "font-awesome"
 // @import "font-awesome-sprockets";
 // @import "font-awesome";
-@import 'bootstrap';
-@import 'bootstrap-sprockets';
+// @import 'bootstrap';
+// @import 'bootstrap-sprockets';
 @import "breakpoint";
 @import "susy";
 // @import "../libs/semantic.min.css";
@@ -18,10 +18,6 @@
 ***********/
 // Main files.
 @import "../blocks/custom/custom.scss";
-@import "../blocks/header/header.scss";
-@import "../blocks/footer/footer.scss";
-@import "../blocks/main/main.scss";
-
-
-
-
+@import "../blocks/styles/_header.scss";
+@import "../blocks/styles/_footer.scss";
+@import "../blocks/styles/_main.scss";

@@ -79,6 +79,13 @@ const vendors = [
   'react-redux', 
   'redux-form'
 ];
+
+const bablePlugins = ['react-html-attrs',
+       'transform-class-properties',
+       'transform-decorators-legacy',
+       'transform-object-rest-spread',
+       'transform-react-jsx-source'];
+
 gulp.task('fastjs', () => {
   process.env.NODE_ENV = 'development';
 
@@ -89,10 +96,7 @@ gulp.task('fastjs', () => {
     })
     // .external(vendors)
     .transform("babelify", {
-      plugins: ['react-html-attrs',
-       'transform-class-properties',
-       'transform-decorators-legacy',
-       'transform-object-rest-spread'],
+      plugins: bablePlugins,
       presets: ['latest', 'react'],
       sourceMapsAbsolute: true
     })
@@ -115,18 +119,15 @@ gulp.task('source', ['lintsource'], () => {
     })
     // .external(vendors)
     .transform("babelify", {
-      plugins: ['react-html-attrs',
-       'transform-class-properties',
-       'transform-decorators-legacy',
-       'transform-object-rest-spread'],
+      plugins: bablePlugins,
       presets: ['latest', 'react'],
       sourceMapsAbsolute: false
     })
     .bundle()
     .pipe(source('main.js'))
     .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(uglify()).on('error', gutil.log)
-    .pipe(sourcemaps.init())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(settings.build + '/js'));
 });
