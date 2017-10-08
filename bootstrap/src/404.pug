@@ -18,7 +18,9 @@ html.no-js(lang="ru", manifest="{% static 'public/app.manifest' %}")
     )
     title Site Title
   body
-    #root
+    //- include ./blocks/templates/_header.pug
+    //- include ./blocks/templates/_main.pug
+    //- include ./blocks/templates/_footer.pug
       
     script(async, src="{% static 'public/js/main.js' %}")
     link(rel="stylesheet",

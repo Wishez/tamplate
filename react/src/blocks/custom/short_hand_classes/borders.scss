@@ -1,18 +1,20 @@
-%roundBorder4 {
+%roundBorder3 {
 	border-radius: 4px;
 }
 
 %solidBorder {
-	border-style: solid $i;
+	border-style: solid;
 }
 
-%widthBorder4 {
-	border-width: 4px;
+%widthBorder2 {
+	border-width: 2px;
 }
 
-%bottomBorder {
-	border-bottom-width: 1px;
-	@extend %solidBorder;
-	@extend %extraSmalltBottomPadding;
-	border-color: #636363;
+
+%round {
+   border-radius: 50%;
+}
+
+%zeroBorders {
+	border: 0;
 }

@@ -8,28 +8,6 @@ $i: !important;
 @import 'config/flex.scss';
 @import 'config/mixins.scss';
 
-@import 'short_hand_classes/margins.scss';
-@import 'short_hand_classes/visible.scss';
-// @import 'short_hand_classes/aligned.scss';
-@import 'short_hand_classes/links.scss';
-@import 'short_hand_classes/buttons.scss';
-// @import 'short_hand_classes/float.scss';
-@import 'short_hand_classes/image.scss';
-@import 'short_hand_classes/paddings.scss';
-@import 'short_hand_classes/form.scss';
-@import 'short_hand_classes/shadows.scss';
-@import 'short_hand_classes/perspective.scss';
-@import 'short_hand_classes/display.scss';
-@import 'short_hand_classes/position.scss';
-@import 'short_hand_classes/image.scss';
-@import 'short_hand_classes/sizes.scss';
-@import 'short_hand_classes/proportion.scss';
-@import 'short_hand_classes/indexes.scss';
-@import 'short_hand_classes/offsets.scss';
-@import 'short_hand_classes/transitions.scss';
-@import 'short_hand_classes/borders.scss';
-@import 'short_hand_classes/cursores.scss';
-@import 'short_hand_classes/overflow.scss';
 
 
 // Custom styles
@@ -72,19 +50,57 @@ body {
   -webkit-hyphenate-after: 3;
   hyphenate-lines: 3;
   color: $baseColorFont;
-  background-color: $lightGray;
+  background-color: $bodyColorBg;
 }
+
+@import 'short_hand_classes/transitions.scss';
+@import 'short_hand_classes/margins.scss';
+@import 'short_hand_classes/borders.scss';
+@import 'short_hand_classes/backgrounds.scss';
+@import 'short_hand_classes/visible.scss';
+// @import 'short_hand_classes/aligned.scss';
+@import 'short_hand_classes/links.scss';
+@import 'short_hand_classes/buttons.scss';
+@import 'short_hand_classes/float.scss';
+@import 'short_hand_classes/image.scss';
+@import 'short_hand_classes/paddings.scss';
+@import 'short_hand_classes/form.scss';
+@import 'short_hand_classes/shadows.scss';
+@import 'short_hand_classes/perspective.scss';
+@import 'short_hand_classes/display.scss';
+@import 'short_hand_classes/position.scss';
+@import 'short_hand_classes/image.scss';
+@import 'short_hand_classes/sizes.scss';
+@import 'short_hand_classes/proportion.scss';
+@import 'short_hand_classes/indexes.scss';
+@import 'short_hand_classes/offsets.scss';
+@import 'short_hand_classes/cursores.scss';
+@import 'short_hand_classes/overflow.scss';
+@import 'short_hand_classes/font.scss';
+
 
 h1, h2, h3, h4, h5, h6 {
   font-family: inherit;
+  hyphens: none;
 }
+
 h1 {
   font-size: $firstSizeHeading;
   font-weight: normal;
+
 }
 h2 {
   font-size: $secondSizeHeading;
   color: $gray;
+  @include breakpoint($sm) {
+      font-size: (24em / 16);
+    }
+  @include breakpoint($xs) {
+      font-size: 4vw;
+    }
+  @include breakpoint($xxs) {
+     font-size: 6vw;
+  }
 }
 ul {
   list-style: none;

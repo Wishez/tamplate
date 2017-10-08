@@ -21,5 +21,19 @@ $(function() {
     
     window.open(url);
   }// end openUrlInNewWindow
-
+  // Preload
+  $('.curtain')
+    .css('width', 0)
+    .find('.sk-double-bounce')
+    .css('opacity', 0); // end preload
+    
+    // For scroll
+    $(window).on('click', '#connectMe', function() {
+      const scrollTo = $($(this).data('href')).offset().top;
+      
+      $('body, html').animate({
+          scrollTop: scrollTo
+      }, 1500, Linear.ease);
+      window.scrollTop
+    }) 
 });// end ready

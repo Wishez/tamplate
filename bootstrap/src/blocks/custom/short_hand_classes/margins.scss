@@ -18,7 +18,9 @@
 %increasedTopMargin {
 	margin-top: 1.5em;
 }
-
+%zeroTopMargin {
+	margin-top: 0;
+}
 %zeroMargins {
 	margin: 0;
 }
@@ -29,8 +31,7 @@
 %bigTopMargin {
 	margin-top: 2.5em;
 }
-
-%extraBigTopMargin {
+%bigestTopMargin {
 	margin-top: 3em;
 }
 
@@ -40,4 +41,10 @@
 
 %largeBottomMargin {
 	margin-bottom: 2em;
+}
+
+%center-block {
+   margin-left: auto !important;
+   margin-right: auto !important;
+   display: block;
 }
