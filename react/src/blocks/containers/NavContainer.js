@@ -2,46 +2,63 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
+import { withRouter } from 'react-router-dom';
 import Navigation from './../components/Navigation';
 import { selectNavigationItem } from './../actions/navigationActions.js';
 
 class NavContainer extends Component {
   static PropTypes = { 
-      firstNavItem: PropTypes.object.isRequired,
-      secondNavItem: PropTypes.object.isRequired,
-      thirdNavItem: PropTypes.object.isRequired,
-      fourthNavItem: PropTypes.object.isRequired,
-      fifthNavItem: PropTypes.object.isRequired,
+      navigationItems: PropTypes.array.isRequired,
       dispatch: PropTypes.func.isRequired
   }
 
   state = {
-      isOpen: false
+      isOpen: false,
+      navStyles: {
+        width: '0',
+        opacity: '0'
+      }
   };
 
   openMenu = () => {
-    let $navList = $('#navList');
-    let $closeButton = $('#closeMenuButton');
+    
     if (!this.state.isOpen) {
-      this.setState({isOpen: true});
-      $closeButton.show();
-      $navList.show('fast');
+      let width;
+
+      if (window.innerWidth <= 800)
+        width = '100%';
+      else 
+        width = '20vw';
+
+      this.setState({
+        isOpen: true,
+        navStyles: {
+          'width': width,
+          'opacity': '1'
+        }
+      });
+      
     } else {
-      this.setState({isOpen: false});
-      $navList.hide('fast');
-      $closeButton.hide();
+      this.closeMenu();
     }
   };
 
-  changeActiveNavigationItem = navigationItem => {
-      const { dispatch } = this.props;
+  smoothRise = e => {
+    let element = $(e.target).attr('href');
+    if (!element)
+      element = $(e.target).parent().attr('href');
+    const pathTo = $(element).offset().top;
+    
+    $('body, html')
+      .stop()
+      .animate({
+        scrollTop: pathTo
+      }, 800);
+  }
 
-      dispatch(selectNavigationItem(navigationItem));
-      // Меню закрывается.
-      if (this.state.isOpen)
-          this.closeMenu();
-  };
+  changeActiveNavigationItem = navigationItem => 
+      () => this.props.dispatch(selectNavigationItem(navigationItem));
+
 
   getActiveClasses = state => ( 
     classNames({
@@ -51,17 +68,26 @@ class NavContainer extends Component {
   );
    
   closeMenu = () => {
-    let $navList = $('#navList');
-    if (window.innerWidth < 767) $navList.hide('fast');
+    this.setState({
+        isOpen: false,
+        navStyles: {
+          'width': '0',
+          'opacity': '0'
+        }
+      });
   }
 
+
   render() {
+
     return (
         <Navigation {...this.props}
+            navStyles={this.state.navStyles}
             getActiveClasses={this.getActiveClasses}
             openMenu={this.openMenu}
             closeMenu={this.closeMenu}
             changeActiveNavigationItem={this.changeActiveNavigationItem}
+            smoothRise={this.smoothRise}
         />
     );
   }
@@ -70,22 +96,15 @@ class NavContainer extends Component {
 
 const mapStateToProps = state => {
   const { navigation } = state;
+  let navigationItems = [];
 
-  const {
-    firstNavItem,
-    secondNavItem,
-    thirdNavItem,
-    fourthNavItem,
-    fifthNavItem
-  } = navigation;
-
+  for (const prop in navigation) {
+    navigationItems.push(navigation[prop]);
+  }
+  
   return {
-    firstNavItem,
-    secondNavItem,
-    thirdNavItem,
-    fourthNavItem,
-    fifthNavItem
+    navigationItems
   }
 }
 
-export default connect(mapStateToProps)(NavContainer);
+export default withRouter(connect(mapStateToProps)(NavContainer));

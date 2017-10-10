@@ -6,24 +6,39 @@ import { SELECT_NAVIGATION_ITEM, navigationItems } from './../constants/navigati
 export const initNavigationState = {
 	firstNavItem: {
 		active: false,
-		name: navigationItems.home
+		name: navigationItems.home,
+		index: 'firstNavItem',
+		icon: 'home',
+		pathTo: '/'
 	},
 	secondNavItem: {
 		active: false,
-		name: navigationItems.registration
+		name: navigationItems.services,
+		index: 'secondNavItem',
+		icon: '',
+		pathTo: '/services'
 	},
 	thirdNavItem: {
 		active: false,
-		name: navigationItems.contacts
+		name: navigationItems.contacts,
+		index: 'thirdNavItem',
+		icon: '',
+		pathTo: '/contacts'
 	},
 	fourthNavItem: {
 		active: false,
-		name: navigationItems.rules
-	},
-	fifthNavItem: {
-		active: false,
-		name: navigationItems.forum
+		name: navigationItems.advice,
+		index: 'fourthNavItem',
+		icon: '',
+		pathTo: '/advice'
 	}
+	// fifthNavItem: {
+	// 	active: false,
+	// 	name: navigationItems.isistutions,
+	// 	index: 'fifthNavItem',
+	// 	icon: 'users',
+	// 	pathTo: '/isistutions'
+	// }
 };
 
 const navigation = (
