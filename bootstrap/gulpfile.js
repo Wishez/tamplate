@@ -43,11 +43,14 @@ const settings = {
   build: './public'
 }, 
 templatesPath = settings.build,
-scssPathes = ['node_modules/susy/sass', 
-              'node_modules/breakpoint-sass/stylesheets',
-             'node_modules/bootstrap-sass/assets/stylesheets',
-             'node_modules/font-awesome-sass/assets/stylesheets/',
-             'node_modules/semantic-ui-sass/',];
+scssPathes = [
+  'node_modules/susy/sass', 
+  'node_modules/breakpoint-sass/stylesheets',
+  'node_modules/bootstrap-sass/assets/stylesheets',
+  'node_modules/font-awesome-sass/assets/stylesheets/',
+  'node_modules/semantic-ui-sass/',
+  'node_modules/slick-carousel/slick'
+];
 
 
 
@@ -131,7 +134,7 @@ gulp.task('source', ['lintsource'], () => {
 /* ----------------- */
 
 gulp.task('faststyles', () => {
-  return gulp.src(settings.src + '/scss/**/*.scss')
+  return gulp.src(settings.src + '/sass/**/*.sass')
     .pipe(sourcemaps.init())
     .pipe(sass({
       includePaths: scssPathes
@@ -146,7 +149,7 @@ gulp.task('faststyles', () => {
 });
 
 gulp.task('styles', () => {
-  return gulp.src(settings.src + '/scss/**/*.scss')
+  return gulp.src(settings.src + '/sass/**/*.sass')
     .pipe(sass({
       outputStyle: 'compressed',
       includePaths: scssPathes
@@ -235,7 +238,7 @@ gulp.task('serve', () => {
 });
 
 gulp.task('watch', () => {
-  gulp.watch(settings.src + '/**/*.scss', ['faststyles']).on('change', browserSync.reload);
+  gulp.watch(settings.src + '/**/*.sass', ['faststyles']).on('change', browserSync.reload);
   gulp.watch(settings.src + '/img/**/*.*', ['fastimages']).on('change', browserSync.reload);
   gulp.watch(settings.src + '/fonts/**/*.*', ['fonts']).on('change', browserSync.reload);
   gulp.watch(settings.src + '/**/*.pug', ['html']).on('change', browserSync.reload);
@@ -243,9 +246,9 @@ gulp.task('watch', () => {
 });
 
 gulp.task('lintfastjs', ['lintsource', 'fastjs']);
-gulp.task('fastlintdevelop', ['html', 'lintfastjs', 'faststyles', 'fastmedia', 'serve']);
+gulp.task('fastlintdevelop', ['html', 'lintfastjs', 'faststyles', 'fastmedia']);
 
-gulp.task('fastdevelop', ['html', 'fastjs', 'faststyles', 'fastmedia']); 
+gulp.task('fastdevelop', ['html', 'fastjs', 'faststyles', 'fastmedia', 'serve']); 
 gulp.task('production', ['source', 'styles', 'media', 'html', 'manifest']);
 
 

@@ -33,7 +33,6 @@ $(function() {
       
       $('body, html').animate({
           scrollTop: scrollTo
-      }, 1500, Linear.ease);
-      window.scrollTop
+      }, 1500);
     }) 
 });// end ready

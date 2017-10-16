@@ -1,0 +1,82 @@
+// Header
+.header 
+  margin-top: 3.5%
+  @extend %clearfix
+
+/* START BRAND */
+.brand 
+	max-width: 320px
+  @extend %five
+  @extend %inline-block
+
+
+.brand__name 
+  @extend %fullWidth
+  @include responsive-background((192% / 1023 * 100), './../img/logo.png')
+
+/* END BRAND */
+
+/* START NAVIGATION */
+.navigation 
+  @extend %seven
+  @extend %floatRight
+  @extend %defaultTopPadding
+
+.navigation__openMenuButton 
+  @extend %floatRight
+
+
+.navigation__closeMenuButton 
+   z-index: 11
+   @extend %pointIt
+   @extend %absolute
+   right: 10%
+   top: 10%
+
+
+.navList 
+    @extend %zeroOpacity
+    @extend %fixed
+    @extend %zeroLeft
+    @extend %zeroTop
+    @extend %fullHeight
+    transition: opacity 1.5s, width 1s 
+    width: 0
+    background-color: $white
+    flex-direction: column
+    align-items: space-between
+    z-index: 10
+    padding-top: 35vh
+    @extend %text-center
+    @extend %fs-21
+
+/* END NAV ITEMS */
+
+/* START NAV ITEMS */
+.navItem 
+  @extend %defaultTopMargin
+  &.active .navItem__refer 
+    
+  
+ 
+
+.navItem__refer 
+  @include breakpoint($sm) 
+     
+  
+  @include breakpoint(max-width 992px) 
+    
+  
+  @include breakpoint($xs) 
+    
+  
+  @include breakpoint($xxs) 
+    
+  
+  &:hover 
+    
+   
+  
+
+/* END NAV ITEMS */
+
