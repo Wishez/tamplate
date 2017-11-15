@@ -121,7 +121,6 @@ gulp.task('source', ['lintsource'], () => {
       entries: settings.src + '/js/main.js',
       debug: false
     })
-    // .external(vendors)
     .transform("babelify", {
       plugins: bablePlugins,
       presets: ['latest', 'react'],
@@ -235,16 +234,6 @@ gulp.task('manifest', () => {
 /* Predefined
 /* ----------------- */
 // Uncomment if you need front-end server, but then you need to change pathes in html templates.
-// gulp.task('serve', () => {
-//   browserSync.init({
-//     server: {
-//       baseDir: settings.build
-//     },
-//     open: false,
-//     port: 9020,
-//     reloadDelay: 2200
-//   });
-// });
 
 gulp.task('watch', () => {
   gulp.watch(settings.src + '/**/*.sass', ['faststyles']);
