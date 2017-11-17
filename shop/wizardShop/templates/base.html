@@ -1,0 +1,23 @@
+{% load cms_tags menu_tags sekizai_tags %}
+<!doctype html>
+<html>
+    <head>
+        <title>{% block title %}This is my new project home page{% endblock title %}</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <style type="text/css">
+            
+        </style>
+        {% render_block "css" %}
+    </head>
+    <body>
+        {% cms_toolbar %}
+        <!-- begin header -->
+        <header class="header">
+            {% static_placeholder "header" %}
+        </header>
+        <main class='main'>
+            {% block content %}{% endblock content %}
+        </main>
+        {% render_block "js" %}
+    </body>
+</html>
