@@ -1,8 +1,8 @@
 import React from 'react';
 import Title from './Title';
-import RegisterForm from './RegisterForm';
+import RegistrationForm from './RegistrationForm';
 
-const Register = ({
+const Registration = ({
 	registered,
 	...rest
 }) => (
@@ -14,10 +14,10 @@ const Register = ({
 			<p className='registration__message registration__message--succes'>
 				{rest.registerMessage}
 			</p> :
- 			<RegisterForm
+ 			<RegistrationForm
  				{...rest} />
 		}
 	</section>
 );
 
-export default Register;
+export default Registration;

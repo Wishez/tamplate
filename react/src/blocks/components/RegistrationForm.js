@@ -19,7 +19,7 @@ import {
 
 import Captcha from './Captcha';
 
-const RegisterForm = ({
+const RegistrationForm = ({
 	submitRegisterForm,
 	handleSubmit,
 	allowRegister,
@@ -89,6 +89,6 @@ const RegisterForm = ({
 
 
 export default reduxForm({
-	form: 'registerForm'
-})(RegisterForm);
+	form: 'registrationForm'
+})(RegistrationForm);
  
