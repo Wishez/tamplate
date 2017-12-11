@@ -15,22 +15,7 @@
   max-height: #{$max-height}
   padding-bottom: #{$padding-bottom}
   &::after 
-    background-color: #{$color}
-  
-
-%center-block 
-   margin-left: auto !important
-   margin-right: auto !important
-   display: block
-
-@mixin center-block 
-  @extend %center-block
-
-
-%responsiveBackground 
-  background: center top no-repeat
-  background-size: cover
-  
+    background-color: #{$color}  
 
 @mixin responsive-background($padding-bottom: false, $url: false, $attachment: false) 
   @extend %responsiveBackground
@@ -44,20 +29,12 @@
   @if $url 
     background-image: url('#{$url}')
   
-
-
-%colorsTransition 
-  transition: color 0.5s, background-color 0.5s
-
 @mixin smooth-transition-link 
   @extend %colorsTransition
 
 
-%colorsTransitions--props_color-background-transform-shadow 
-  transition: color 0.5s, background-color 0.5s, transform 0.1s, box-shadow, 0.5s $i
-
 @mixin smooth-transition-button($font-color: false, $background-color: false) 
-  @extend %colorsTransitions--props_color-background-transform-shadow
+  @extend %transition0.5
   &:hover 
     @if $font-color 
       color: #{$font-color}
@@ -65,17 +42,16 @@
     @if $background-color 
       background-color: #{$background-color}
     
-  
   &:active 
     transform: translateY(3px)
   
 
 
 @mixin flexable($flex, $dir_wrap, $content, $align) 
-  display: #{$flex}
-  flex-flow: #{$dir_wrap}
-  justify-content: #{$content}
-  align-items: #{$align}
+  @extend %#{$flex}
+  @extend %#{$dir_wrap}
+  @extend %#{$content}
+  @extend %#{$align}
 
 
 @mixin link-colors( $color: $baseLinkColor, $hover-color: $baseHoverLinkColor, $active-color: $baseActiveLinkColor, $visited-color: $baseVisitedLinkColor, $focus-color: $baseFocusLinkColor, $one-color: false)
@@ -135,10 +111,8 @@
   &:focus::-webkit-input-placeholder 
       color: $color
   
-
   &:focus:-ms-input-placeholder 
       color: $color
-  
 
   &:focus::-moz-placeholder 
       color: $color
@@ -188,3 +162,4 @@
     font-style: $style
     font-weight: $weight
     src: $src
+    font-display: fallback

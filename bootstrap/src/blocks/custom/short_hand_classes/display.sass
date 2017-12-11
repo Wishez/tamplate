@@ -4,7 +4,6 @@
 %inline-block 
 	display: inline-block
 
-
 %flex 
 	display: flex
 
@@ -17,7 +16,7 @@
 	justify-content: space-between
 
 
-%justifyArround 
+%justifyAround 
 	justify-content: space-around
 
 
@@ -54,3 +53,9 @@
 
 %flexWrap  
 	flex-wrap: wrap
+
+%defaultFlex
+	@extend %flex
+	@extend %defaultRowFlow
+	@extend %alignCenter
+	@extend %justifyBetween 
