@@ -1,4 +1,10 @@
-node_modules
-bower_components
-.sass-cache
-public
+__pycache__
+.idea
+debug.log
+admin
+colorfield
+grappelli
+rest_framework
+range_filter
+jet
+jet.dashboard
