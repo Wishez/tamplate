@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'rest_framework',
     'app.apps.AppConfig',
-    'api.apps.ApiConfig',
     'singlemodeladmin',
     'colorfield',
     'album',
