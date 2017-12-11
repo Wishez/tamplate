@@ -1,4 +1,4 @@
-# template
- It's time to start.
+# Django Template
+	Here i collected known to me best practice to start new project. 
  
- Later, i'm going to describe it.
+
